@@ -1,14 +1,15 @@
-//Three possible statuses: white, black, free
+//Three possible statuses for tiles: white, black, free
+//Three possible statuses for players: home, captured, normal
+//42 is the winning option code
 
 
 
 //Point to win
 var whitePoints = 0;
 var blackPoints = 0;
-var dice1 = 0;
-var dice2 = 0;
-var dice3 = 0;
-var dice4 = 0;
+
+//Array of dices (can only be 2 dices at a time, in case of a double move, the player will simply get 2 more dices of the same number at the of the turn)
+var dices = [];
 
 //Array of pieces
 var blackPieces = [];
@@ -67,9 +68,24 @@ function Piece(id, color, place) {
         this.place = this.place + offset;
         }
     }
+
 } ;
 
+//////////////////////////NOT ENOUGH TESTING/////////////////////////////////////////
+//NEED TO TEST THE EFFECT ON THE TILES
+    Piece.prototype.win = function(){
+        tile[this.place].pieces--;
+        tile[this.place].objects.pop();
+        if(this.color == 'white'){
+            whitePoints++;
+            whitePieces.splice(this.id, 1);
+        }
+        if(this.color == 'black'){
+            blackPoints++;
+            blackPieces.splice(this.id - 15, 1);
+        }
 
+    }
 
 
 //Dice roll
@@ -110,6 +126,42 @@ function initializeWhite() {
     whitePieces.push(w12);
     whitePieces.push(w13);
     whitePieces.push(w14);
+}
+
+//Initiallize black pieces on board
+function initializeBlack() {
+    b0 = new Piece(15, 'black', 19);
+    b1 = new Piece(16, 'black', 19);
+    b2 = new Piece(17, 'black', 19);
+    b3 = new Piece(18, 'black', 19);
+    b4 = new Piece(19, 'black', 19);
+    b5 = new Piece(20, 'black', 17);
+    b6 = new Piece(21, 'black', 17);
+    b7 = new Piece(22, 'black', 17);
+    b8 = new Piece(23, 'black', 12);
+    b9 = new Piece(24, 'black', 12);
+    b10 = new Piece(25, 'black', 12);
+    b11 = new Piece(26, 'black', 12);
+    b12 = new Piece(27, 'black', 12);
+    b13 = new Piece(28, 'black', 2);
+    b14 = new Piece(29, 'black', 1);
+
+    blackPieces.push(b0);
+    blackPieces.push(b1);
+    blackPieces.push(b2);
+    blackPieces.push(b3);
+    blackPieces.push(b4);
+    blackPieces.push(b5);
+    blackPieces.push(b6);
+    blackPieces.push(b7);
+    blackPieces.push(b8);
+    blackPieces.push(b9);
+    blackPieces.push(b10);
+    blackPieces.push(b11);
+    blackPieces.push(b12);
+    blackPieces.push(b13);
+    blackPieces.push(b14);
+
 }
 
 //Modifies the options of all the white captured pieces and returns if moves are possible or not for the captured pieces
@@ -178,14 +230,104 @@ function capturedMovesBlack(dices){
 
 //Modifies the options of all the white pieces that are in home and close to winning and returns if there are any possible moves for white pieces
 function homeMovesWhite(dices){
+    var possible = false;
+    for(var i = 0; i < whitePieces.length; i++) {
+        if(dices.length == 2){
+            if(whitePieces[i].place + dices[0] > 0){
+                if(tile[whitePieces[i].place + dices[0]].pieces <= 1 || tile[whitePieces[i].place + dices[0]].occupied == 'white')
+                    whitePieces[i].options.push(whitePieces[i].place + dices[0]);
+            }
+            else{
+                whitePieces[i].options.push(42);
+            }
 
+            if(whitePieces[i].place + dices[1] > 0){
+                if(tile[whitePieces[i].place + dices[1]].pieces <= 1 || tile[whitePieces[i].place + dices[1]].occupied == 'white')
+                    whitePieces[i].options.push(whitePieces[i].place + dices[1]);
+            }
+            else{
+                whitePieces[i].options.push(42);
+            }
+
+            if(whitePieces[i].options.length > 0 && whitePieces[i].options.includes(42) == false){
+                if(whitePieces[i].place + dices[1] + dices[0] > 0){
+                    if(tile[whitePieces[i].place + dices[0] + dices[1]].pieces <= 1 || tile[whitePieces[i].place + dices[0] + dices[1]].occupied == 'white')
+                        whitePieces[i].options.push(whitePieces[i].place + dices[1] + dices[0]);
+                }
+                else{
+                    whitePieces[i].options.push(42);
+                }
+            }
+
+            if(whitePieces[i].options.length > 0)
+                possible =  true;
+
+        }
+        if(dices.length == 1) {
+            if(whitePieces[i].place + dices[0] > 0) {
+                if(tile[whitePieces[i].place + dices[0]].pieces <= 1 || tile[whitePieces[i].place + dices[0]].occupied == 'white')
+                    whitePieces[i].options.push(whitePieces[i].place + dices[0]);
+            }
+            else {
+                whitePieces[i].options.push(42);
+            }
+
+            if(whitePieces[i].options.length > 0)
+                possible =  true;
+        }
+    }
 }
 
 /////////////////////////////////////////////NOT TESTED YED/////////////////////////////////////////////////
 
 //Modifies the options of all the black pieces that are in home and close to winning and returns if there are any possible moves for black pieces
 function homeMovesBlack(dices){
+    var possible = false;
+    for(var i = 0; i < blackPieces.length; i++) {
+        if(dices.length == 2){
+            if(blackPieces[i].place + dices[0] < 25){
+                if(tile[blackPieces[i].place + dices[0]].pieces <= 1 || tile[blackPieces[i].place + dices[0]].occupied == 'black')
+                    blackPieces[i].options.push(blackPieces[i].place + dices[0]);
+            }
+            else{
+                blackPieces[i].options.push(42);
+            }
 
+            if(blackPieces[i].place + dices[1] < 25){
+                if(tile[blackPieces[i].place + dices[1]].pieces <= 1 || tile[blackPieces[i].place + dices[1]].occupied == 'black')
+                    blackPieces[i].options.push(blackPieces[i].place + dices[1]);
+            }
+            else{
+                blackPieces[i].options.push(42);
+            }
+
+            if(blackPieces[i].options.length > 0 && blackPieces[i].options.includes(42) == false){
+                if(blackPieces[i].place + dices[1] + dices[0] < 25){
+                    if(tile[blackPieces[i].place + dices[0] + dices[1]].pieces <= 1 || tile[blackPieces[i].place + dices[0] + dices[1]].occupied == 'black')
+                        blackPieces[i].options.push(blackPieces[i].place + dices[1] + dices[0]);
+                }
+                else{
+                    blackPieces[i].options.push(42);
+                }
+            }
+
+            if(blackPieces[i].options.length > 0)
+                possible =  true;
+
+        }
+        if(dices.length == 1) {
+            if(blackPieces[i].place + dices[0] < 25) {
+                if(tile[blackPieces[i].place + dices[0]].pieces <= 1 || tile[blackPieces[i].place + dices[0]].occupied == 'black')
+                    blackPieces[i].options.push(blackPieces[i].place + dices[0]);
+            }
+            else {
+                blackPieces[i].options.push(42);
+            }
+
+            if(blackPieces[i].options.length > 0)
+                possible =  true;
+        }
+    }
 }
 
 //Modifies the options of all the white pieces on board and returns if moves are possible or not for white pieces
@@ -199,7 +341,8 @@ function normalMovesWhite(dices) {
             if(whitePieces[i].place + dices[1] > 0 && (tile[whitePieces[i].place + dices[1]].pieces <= 1 || tile[whitePieces[i].place + dices[1]].occupied == 'white'))
                 whitePieces[i].options.push(whitePieces[i].place + dices[1]);
 
-            if(whitePieces[i].length > 0)
+            //CHANGED CONDITION
+            if(whitePieces[i].options.length > 0)
             if(whitePieces[i].place + dices[1] + dices[0] > 0 && (tile[whitePieces[i].place + dices[0] + dices[1]].pieces <= 1 || tile[whitePieces[i].place + dices[0] + dices[1]].occupied == 'white'))
                 whitePieces[i].options.push(whitePieces[i].place + dices[1] + dices[0]);
 
@@ -343,130 +486,7 @@ function capture(target){
 
 
 
-//Initiallize black pieces on board
-function initializeBlack() {
-    b0 = new Piece(15, 'black', 19);
-    b1 = new Piece(16, 'black', 19);
-    b2 = new Piece(17, 'black', 19);
-    b3 = new Piece(18, 'black', 19);
-    b4 = new Piece(19, 'black', 19);
-    b5 = new Piece(20, 'black', 17);
-    b6 = new Piece(21, 'black', 17);
-    b7 = new Piece(22, 'black', 17);
-    b8 = new Piece(23, 'black', 12);
-    b9 = new Piece(24, 'black', 12);
-    b10 = new Piece(25, 'black', 12);
-    b11 = new Piece(26, 'black', 12);
-    b12 = new Piece(27, 'black', 12);
-    b13 = new Piece(28, 'black', 2);
-    b14 = new Piece(29, 'black', 1);
 
-    blackPieces.push(b0);
-    blackPieces.push(b1);
-    blackPieces.push(b2);
-    blackPieces.push(b3);
-    blackPieces.push(b4);
-    blackPieces.push(b5);
-    blackPieces.push(b6);
-    blackPieces.push(b7);
-    blackPieces.push(b8);
-    blackPieces.push(b9);
-    blackPieces.push(b10);
-    blackPieces.push(b11);
-    blackPieces.push(b12);
-    blackPieces.push(b13);
-    blackPieces.push(b14);
-
-}
 
 initializeWhite();
 initializeBlack();
-
-capture(1);
-whitePieces[4].move(-5);
-console.log(tile[1]);
-console.log(whitePieces[4]);
-console.log(tile[0]);
-var dices = [6,5];
-capturedMovesBlack(dices);
-console.log(blackPieces[14]);
-
-/* TESTING SOME MOVE SETS
-console.log(normalMovesBlack([4,6]));
-console.log(checkBlackMove(4,23));
-console.log(blackCaptureAnything(4,23));
-capture(23);
-console.log(whitePieces[14]);
-console.log(capturedWhite);
-blackPieces[4].move(4);
-resetOptions();
-console.log(blackPieces[4]);
-console.log(tile[23] + '\n');
-console.log(checkWhiteStatus());
-console.log(capturedWhite + '\n');
-capturedMovesWhite([-6,-5]);
-console.log(whitePieces[14].options);
-capturedWhite.pop();
-//tile[25].objects.push(14);
-whitePieces[14].move(-5);
-console.log(whitePieces[14]);
-resetOptions();
-console.log(tile[20]);
-console.log(whitePieces[14]);
-*/
-
-
-
-
-//CONSOLE TESTING
-/*
-tile[19].objects[tile[19].objects.length-1].move(6);
-
-tile[19].objects[tile[19].objects.length-1].move(6);
-
-console.log(tile[19]);
-console.log(tile[20]);
-console.log(tile[21]);
-console.log(blackPoints);
-*/
-
-/*
-var turn = 'white';
-var rolledDice = false;
-
-var selectedPiece = -1;
-
-
-//Select a piece
-$(".tile").click(function(){
-    if(rolledDice == true && tile[$(this).attr("id")].occupied == turn){
-        selectedPiece = $(this).attr("id");
-        alert("Tile selected");
-    }
-    
-});
-
-//Move a piece
-$(".tile").dblclick(function(){
-  
-    
-});
-
-// Rolled the dice
-$(".roll").click(function(){
-    if(rolledDice == false){
-        dice1 = roll();
-        dice2 = roll();
-        $(".rolled").html("<br>" + dice1 + " " + dice2);
-        rolledDice = true;
-        if(turn == 'white'){
-            dice1 = dice1*-1;
-            dice2 = dice2*-1;
-        }
-
-    }
-   else
-        alert("You can't roll the dice again, make a move!")
-});
-*/
-

@@ -1,0 +1,75 @@
+ 
+html {
+    
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+     background-image: url("images/ancientBack.jpg");
+     background-size: 1600px;
+     display: grid;
+     grid-template-rows: auto;
+     justify-items: center;
+     align-items: center;
+ }
+
+ .container {
+    background-image: url("./images/board.png");
+    background-size: cover;
+    display: grid;
+    grid-template-columns: 4.3% 5.9% 5.9% 6% 6% 6% 5.8% 8.5% 5.9% 5.9% 5.9% 6.1% 5.9% 5.9% 4.4%;
+    grid-template-rows: 7% 8.61% 8.61% 8.61% 8.61% 8.61% 8.61% 8.61% 8.61% 8.61% 8.61% 7%;
+    margin-top: 20px;
+    column-gap: 9px;
+    width: 1050px;
+    height: 670px;
+    background-color: gray;
+     
+     
+ }
+
+ #board {
+     width: 100%;
+     vertical-align: middle;
+     size: 50px;
+
+ }
+
+
+ .tile2 {
+     position: relative;
+     grid-column: 3/4;
+     grid-row: 2/3;
+     text-align: top;
+ }
+
+  #piece2 {
+     width: 100%;
+ }
+
+ #piece1 {
+     width: 100%;
+ }
+
+ .tile1 {
+     grid-column: 2/3;
+     grid-row: 2/3;
+     
+ }
+
+ .counter{
+     grid-column: 7/8;
+     grid-row: 12/13;
+     text-align: center;
+ }
+
+ h2 {
+     color: white;
+     bottom: 50px;
+     
+ }
+
+ 

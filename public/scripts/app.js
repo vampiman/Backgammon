@@ -10,6 +10,8 @@ var blackPoints = 0;
 
 //Array of dices (can only be 2 dices at a time, in case of a double move, the player will simply get 2 more dices of the same number at the of the turn)
 var dices = [];
+var rolledDice = false;
+var turn = 'white';
 
 //Array of pieces
 var blackPieces = [];
@@ -143,7 +145,7 @@ function initializeBlack() {
     b10 = new Piece(25, 'black', 12);
     b11 = new Piece(26, 'black', 12);
     b12 = new Piece(27, 'black', 12);
-    b13 = new Piece(28, 'black', 2);
+    b13 = new Piece(28, 'black', 1);
     b14 = new Piece(29, 'black', 1);
 
     blackPieces.push(b0);
@@ -491,13 +493,15 @@ function capture(target){
 initializeWhite();
 initializeBlack();
 
-//TESTING HOME MOVES BLACK
+
+/*TESTING HOME MOVES BLACK
 homeMovesBlack([6,6]);
 console.log(blackPieces[4]);
 blackPieces[4].win();
 resetOptions();
 console.log(blackPieces);
 console.log(blackPoints);
+*/
 
 /*TESTING CAPTURED BLACK MOVES
 capture(1);
@@ -568,41 +572,57 @@ console.log(blackPoints);
 
 /*
 var turn = 'white';
-var rolledDice = false;
-
-var selectedPiece = -1;
 
 
+
+
+*/
 //Select a piece
-$(".tile").click(function(){
-    if(rolledDice == true && tile[$(this).attr("id")].occupied == turn){
-        selectedPiece = $(this).attr("id");
-        alert("Tile selected");
+var selectedWhite = -1;
+$(() => {
+$(".white").click(function(){
+    if(rolledDice == true){
+    var place = whitePieces[$(this).attr("id")].place;
+    //Deselect
+    if(selectedWhite != -1 && whitePieces[selectedWhite].place == place) {
+        selectedWhite = -1;
+        alert("Deselected piece");
+        $(".future").remove();
     }
-    
+    else if(tile[place].occupied == turn && selectedWhite == -1){
+        selectedWhite = tile[place].objects[tile[place].objects.length - 1];
+        alert("Tile selected");
+        for(var i = 0; i < whitePieces[selectedWhite].options.length;i++){
+            var number = tile[whitePieces[selectedWhite].options[i]].pieces + 1;
+            $(".tile" + whitePieces[selectedWhite].options[i] + "-" + number).append('<img onclick="fuckJQuery(this)" class = "future" src = "stylesheets/images/whitePiece.png"></div>');
+            if(whitePieces[selectedWhite].options[0] == whitePieces[selectedWhite].options[1])
+                i++;
+        }
+    }
+    }
+    else
+        alert("You have to roll the dice first");
 });
 
-//Move a piece
-$(".tile").dblclick(function(){
-  
-    
-});
+
+
 
 // Rolled the dice
 $(".roll").click(function(){
     if(rolledDice == false){
-        dice1 = roll();
-        dice2 = roll();
-        $(".rolled").html("<br>" + dice1 + " " + dice2);
+        dices[0] = roll();
+        dices[1] = roll();
         rolledDice = true;
         if(turn == 'white'){
-            dice1 = dice1*-1;
-            dice2 = dice2*-1;
+            dices[0] = dices[0]*-1;
+            dices[1] = dices[1]*-1;
+            if(checkWhiteStatus() == 'normal')normalMovesWhite(dices);
+            
         }
 
     }
    else
         alert("You can't roll the dice again, make a move!")
 });
-*/
+});
 

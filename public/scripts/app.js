@@ -580,6 +580,7 @@ var turn = 'white';
 //Select a piece
 var selectedWhite = -1;
 var selectedBlack = -1;
+var selectedBlackCapture = -1;
 $(() => {
 /*
 $(".white").click(function(){
@@ -624,6 +625,7 @@ $(".roll").click(function(){
         }
         if(turn == 'black'){
             if(checkBlackStatus() == 'normal')normalMovesBlack(dices);
+            if(checkBlackStatus() == 'captured')capturedMovesBlack(dices);
         }
         $('body').append('<p>' + dices + '</p>');
     }

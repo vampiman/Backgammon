@@ -2,7 +2,7 @@
 function afterWhiteMove(el){
             if(turn == 'white'){
                 //Remember the place where the piece was
-                oldPlace = whitePieces[selectedWhite].place;
+                var oldPlace = whitePieces[selectedWhite].place;
                 //Get the parent class name
                 var parentClass = el.parentElement.className;
                 parentClass = parentClass.replace("tile","");//Parsing class name
@@ -17,14 +17,27 @@ function afterWhiteMove(el){
                 img.className = "white";
                 img.id = selectedWhite;
                 //Append it to the selected future move and check capture
-                /*
-                if(whiteCaptureAnything(arr[0]) == true){
+                if(whiteCaptureAnything(selectedWhite,arr[0]) == true){
                     capture(arr[0]);
                     var targetTile = document.getElementsByClassName('tile' + arr[0] +'-1');
                     targetTile[0].removeChild(targetTile[0].firstChild);
+                    targetTile[0].appendChild(img);
+                    
+                    //Add captured on board and increment counter
+                    if(capturedBlack.length < 2){
+                    var capturedSpot = document.getElementsByClassName('capturedBlackSpot');
+                    
+                    var imgCapture = document.createElement("img");
+                    imgCapture.setAttribute('onclick','selectCapturedBlack(this)');
+                    imgCapture.src = "stylesheets/images/blackPiece.png";
+                    imgCapture.className = "capturedBlack";
+                    capturedSpot[0].appendChild(imgCapture);
+                    
+                    }
+                    var capturedCounter = document.getElementsByClassName('capturedBlackCounter');
+                    document.getElementById('blackCaptureCount').innerHTML = capturedBlack.length;
                 }
-                */
-                el.parentNode.appendChild(img);
+                else el.parentNode.appendChild(img);
                 for(var i = 0; i < x.length;i++){
                     x[i].parentNode.removeChild(x[i]);
                     i--;
@@ -220,4 +233,106 @@ function afterBlackMove(el){
             }
             else
                 alert('Not your turn boi!');
+}
+
+///////////NOT TESTED YET///////////////
+function selectCapturedBlack(element){
+if(rolledDice == true){
+    if(turn == 'black'){
+        selectedBlackCapture = capturedBlack[capturedBlack.length-1];
+        alert("Captured piece selected!");
+        for(var i = 0; i < blackPieces[selectedBlackCapture - 15].options.length; i++){
+            var number = tile[blackPieces[selectedBlackCapture-15].options[i]].pieces + 1;
+            var img = document.createElement("img");
+            img.setAttribute('onclick','afterBlackCapturedMove(this)');
+            img.src = "stylesheets/images/blackPiece.png";
+            img.className = "future";
+            document.getElementsByClassName("tile" + blackPieces[selectedBlackCapture-15].options[i] + "-" + number)[0].appendChild(img);
+            if(blackPieces[selectedBlackCapture-15].options[0] == blackPieces[selectedBlackCapture-15].options[1])
+                i++;
+        }
+    }
+    else alert('Not your turn BOI');
+}else alert('Roll the dice first');
+}
+
+function afterBlackCapturedMove(el){
+     //Remember the place where the piece was
+        var oldPlace = blackPieces[selectedBlackCapture - 15].place;
+        //Get the parent class name
+        var parentClass = el.parentElement.className;
+        parentClass = parentClass.replace("tile","");//Parsing class name
+        var arr = parentClass.split("-");
+
+        var x = document.getElementsByClassName("future");
+        //Create a new image of the deleted old piece
+        var img = document.createElement("img");
+        img.setAttribute('onclick','selectBlackPiece(this)');
+        img.src = "stylesheets/images/blackPiece.png";
+        img.className = "black";
+        img.id = selectedBlackCapture-15;
+        var x = document.getElementsByClassName("future");
+        blackPieces[selectedBlackCapture-15].move((blackPieces[selectedBlackCapture-15].place - arr[0])*-1);
+        capturedBlack.pop();
+
+        //TO IMPLEMENT CAPTURE
+        el.parentNode.appendChild(img);
+        for(var i = 0; i < x.length;i++){
+            x[i].parentNode.removeChild(x[i]);
+            i--;
+        }
+
+        //Switch turns or next move
+                resetOptions();
+                var status = checkBlackStatus();
+                if(dices.length == 2){
+                    if(dices[0] + dices[1] == (oldPlace - arr[0])*-1){
+                        rolledDice = false;
+                        turn = 'white';
+                    }
+                    else if(dices[0] == (oldPlace - arr[0])*-1){
+                        dices.splice(0,1);
+                        if(status == 'normal')
+                            if(normalMovesBlack(dices) == false){
+                                alert('No possible moves');
+                                rolledDice =  false;
+                                turn = 'white';
+                            }
+                        if(status == 'captured')
+                            if(capturedMovesBlack(dices) == false){
+                                rolledDice = false;
+                                turn = 'white';
+                            }
+
+                    }
+                    else {
+                        dices.splice(1,1);
+                        if(status == 'normal')
+                            if(normalMovesBlack(dices) == false){
+                                alert('No possible moves');
+                                rolledDice =  false;
+                                turn = 'white';
+                            }
+                        if(status == 'captured')
+                            if(capturedMovesBlack(dices) == false){
+                                rolledDice = false;
+                                turn = 'white';
+                            }
+                        
+                    }
+                }
+                else{
+                    rolledDice = false;
+                    turn = 'white';
+                }
+                
+                //Remove black piece image
+                if(capturedBlack.length == 0)
+                    document.getElementsByClassName('capturedBlack')[0].parentNode.removeChild(document.getElementsByClassName('capturedBlack')[0]);
+
+                document.getElementById('blackCaptureCount').innerHTML = capturedBlack.length;
+                
+                selectedBlackCapture = -1;
+
+        
 }

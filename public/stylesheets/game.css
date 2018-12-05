@@ -63,6 +63,14 @@ body {
      
  }
  
+ .capturedWhite{
+     width: 100%;
+ }
+
+ .capturedBlack{
+     width: 100%;
+ }
+
  .future {
      width: 100%;
      opacity: 0.5;
@@ -81,9 +89,7 @@ body {
  }
 
  p {
-     color: white;
-     
-     
+     color: white; 
  }
 
  

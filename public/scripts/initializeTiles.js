@@ -12,23 +12,25 @@ $(() => {
     $('body').append('<div><button class = "roll">Roll the dice</dice></div>');
 
     //Initialize captured counters
-    $('.container').append('<div class = "capturedBlackCounter"><p>0</p></div>');
+    $('.container').append('<div class = "capturedBlackCounter"><p id = "blackCaptureCount">0</p></div>');
     $('.capturedBlackCounter').css('grid-column', '8/9');
     $('.capturedBlackCounter').css('grid-row', '12/13');
     $('.capturedBlackCounter').css('text-align','center');
 
-    $('.container').append('<div class = "capturedWhiteCounter"><p>0</p></div>');
+    $('.container').append('<div class = "capturedWhiteCounter"><p id = "whiteCaptureCount">0</p></div>');
     $('.capturedWhiteCounter').css('grid-column', '8/9');
     $('.capturedWhiteCounter').css('grid-row', '1/2');
     $('.capturedWhiteCounter').css('text-align','center');
 
     //Initialize captured spots
-    $('.container').append('<div class = "capturedBlackSpot"><img onclick = "selectCapturedBlack(this)" class="black" src = "stylesheets/images/blackPiece.png"></div>');
+    //The image <img onclick = "selectCapturedBlack(this)" class="black" src = "stylesheets/images/blackPiece.png">
+    //<img onclick = "selectCapturedWhite(this)" class="white" src = "stylesheets/images/whitePiece.png">
+    $('.container').append('<div class = "capturedBlackSpot"></div>');
     $('.capturedBlackSpot').css('grid-column', '8/9');
     $('.capturedBlackSpot').css('grid-row', '10/11');
     $('.capturedBlackSpot').css('text-align','center');
 
-    $('.container').append('<div class = "capturedWhiteSpot"><img onclick = "selectCapturedWhite(this)" class="white" src = "stylesheets/images/whitePiece.png"></div>');
+    $('.container').append('<div class = "capturedWhiteSpot"></div>');
     $('.capturedWhiteSpot').css('grid-column', '8/9');
     $('.capturedWhiteSpot').css('grid-row', '3/4');
     $('.capturedWhiteSpot').css('text-align','center');

@@ -579,7 +579,9 @@ var turn = 'white';
 */
 //Select a piece
 var selectedWhite = -1;
+var selectedBlack = -1;
 $(() => {
+/*
 $(".white").click(function(){
     if(rolledDice == true){
     var place = whitePieces[$(this).attr("id")].place;
@@ -594,7 +596,7 @@ $(".white").click(function(){
         alert("Tile selected");
         for(var i = 0; i < whitePieces[selectedWhite].options.length;i++){
             var number = tile[whitePieces[selectedWhite].options[i]].pieces + 1;
-            $(".tile" + whitePieces[selectedWhite].options[i] + "-" + number).append('<img onclick="fuckJQuery(this)" class = "future" src = "stylesheets/images/whitePiece.png"></div>');
+            $(".tile" + whitePieces[selectedWhite].options[i] + "-" + number).append('<img onclick="afterMove(this)" class = "future" src = "stylesheets/images/whitePiece.png"></div>');
             if(whitePieces[selectedWhite].options[0] == whitePieces[selectedWhite].options[1])
                 i++;
         }
@@ -603,6 +605,7 @@ $(".white").click(function(){
     else
         alert("You have to roll the dice first");
 });
+*/
 
 
 
@@ -619,7 +622,10 @@ $(".roll").click(function(){
             if(checkWhiteStatus() == 'normal')normalMovesWhite(dices);
             
         }
-
+        if(turn == 'black'){
+            if(checkBlackStatus() == 'normal')normalMovesBlack(dices);
+        }
+        $('body').append('<p>' + dices + '</p>');
     }
    else
         alert("You can't roll the dice again, make a move!")

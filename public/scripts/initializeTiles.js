@@ -11,6 +11,29 @@ $(() => {
     
     $('body').append('<div><button class = "roll">Roll the dice</dice></div>');
 
+    //Initialize captured counters
+    $('.container').append('<div class = "capturedBlackCounter"><p>0</p></div>');
+    $('.capturedBlackCounter').css('grid-column', '8/9');
+    $('.capturedBlackCounter').css('grid-row', '12/13');
+    $('.capturedBlackCounter').css('text-align','center');
+
+    $('.container').append('<div class = "capturedWhiteCounter"><p>0</p></div>');
+    $('.capturedWhiteCounter').css('grid-column', '8/9');
+    $('.capturedWhiteCounter').css('grid-row', '1/2');
+    $('.capturedWhiteCounter').css('text-align','center');
+
+    //Initialize captured spots
+    $('.container').append('<div class = "capturedBlackSpot"><img onclick = "selectCapturedBlack(this)" class="black" src = "stylesheets/images/blackPiece.png"></div>');
+    $('.capturedBlackSpot').css('grid-column', '8/9');
+    $('.capturedBlackSpot').css('grid-row', '10/11');
+    $('.capturedBlackSpot').css('text-align','center');
+
+    $('.container').append('<div class = "capturedWhiteSpot"><img onclick = "selectCapturedWhite(this)" class="white" src = "stylesheets/images/whitePiece.png"></div>');
+    $('.capturedWhiteSpot').css('grid-column', '8/9');
+    $('.capturedWhiteSpot').css('grid-row', '3/4');
+    $('.capturedWhiteSpot').css('text-align','center');
+
+
     //Initialize the counters
     for(var i = 1; i <= 12; i++){
         var j = i + 12;
@@ -89,26 +112,26 @@ $(() => {
 
     for(var i = 1; i <= 2; i++){
         var j = 12 + i;
-        $('.tile1-' + i).append('<img class = "black" id = "' + j +'" src = "stylesheets/images/blackPiece.png"></div>')
-        $('.tile24-' + i).append('<img class = "white" id = "' + j +'" src = "stylesheets/images/whitePiece.png"></div>')
+        $('.tile1-' + i).append('<img onclick="selectBlackPiece(this)" class = "black" id = "' + j +'" src = "stylesheets/images/blackPiece.png"></div>')
+        $('.tile24-' + i).append('<img onclick="selectWhitePiece(this)" class = "white" id = "' + j +'" src = "stylesheets/images/whitePiece.png"></div>')
     }
 
     for(var i = 1; i <= 5; i++){
         var j = -1 + i;
-        $('.tile6-' + i).append('<img class = "white" id = "' + j +'" src = "stylesheets/images/whitePiece.png"></div>')
-        $('.tile19-' + i).append('<img class = "black" id = "' + j +'" src = "stylesheets/images/blackPiece.png"></div>')
+        $('.tile6-' + i).append('<img onclick="selectWhitePiece(this)" class = "white" id = "' + j +'" src = "stylesheets/images/whitePiece.png"></div>')
+        $('.tile19-' + i).append('<img onclick="selectBlackPiece(this)" class = "black" id = "' + j +'" src = "stylesheets/images/blackPiece.png"></div>')
     }
 
     for(var i = 1; i <= 3; i++){
         var j = 4 + i;
-        $('.tile8-' + i).append('<img class = "white" id = "' + j +'" src = "stylesheets/images/whitePiece.png"></div>')
-        $('.tile17-' + i).append('<img class = "black" id = "' + j +'" src = "stylesheets/images/blackPiece.png"></div>')
+        $('.tile8-' + i).append('<img onclick="selectWhitePiece(this)" class = "white" id = "' + j +'" src = "stylesheets/images/whitePiece.png"></div>')
+        $('.tile17-' + i).append('<img onclick="selectBlackPiece(this)" class = "black" id = "' + j +'" src = "stylesheets/images/blackPiece.png"></div>')
     }
 
     for(var i = 1; i <= 5; i++){
         var j = 7 + i;
-        $('.tile12-' + i).append('<img class = "black" id = "' + j +'" src = "stylesheets/images/blackPiece.png"></div>')
-        $('.tile13-' + i).append('<img class = "white" id = "' + j +'" src = "stylesheets/images/whitePiece.png"></div>')
+        $('.tile12-' + i).append('<img onclick="selectBlackPiece(this)" class = "black" id = "' + j +'" src = "stylesheets/images/blackPiece.png"></div>')
+        $('.tile13-' + i).append('<img onclick="selectWhitePiece(this)" class = "white" id = "' + j +'" src = "stylesheets/images/whitePiece.png"></div>')
     }
     
 });

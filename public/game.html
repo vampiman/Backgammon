@@ -37,39 +37,12 @@
             <div class ='tile' id='1'>tile 1: 2 black</div><br>-->
         </div>
         <script>
-            function fuckJQuery(el){
-                var parentClass = el.parentElement.className;
-                parentClass = parentClass.replace("tile","");
-                var arr = parentClass.split("-");
-                var old = document.getElementsByClassName("tile" + whitePieces[selectedWhite].place + "-" + tile[whitePieces[selectedWhite].place].pieces);
-                old[0].removeChild(old[0].childNodes[0]);
-                var x = document.getElementsByClassName("future");
-                var img = document.createElement("img");
-                img.src = "stylesheets/images/whitePiece.png";
-                img.className = "white";
-                img.id = selectedWhite;
-                el.parentNode.appendChild(img);
-                for(var i = 0; i < x.length;i++){
-                    x[i].parentNode.removeChild(x[i]);
-                    i--;
-                }
-                var counter = document.getElementById("count" + whitePieces[selectedWhite].place);
-                var number = tile[whitePieces[selectedWhite].place].pieces - 1;
-                document.getElementById("count" + whitePieces[selectedWhite].place).innerHTML = number; 
-                whitePieces[selectedWhite].move((whitePieces[selectedWhite].place - arr[0])*-1);
-                
-                document.getElementById("count" + whitePieces[selectedWhite].place).innerHTML = tile[whitePieces[selectedWhite].place].pieces;
-                
-                rolledDice = false;
-                resetOptions();
-                selectedWhite = -1;
-                
-
-            }
+            
             
         </script>
         <script src="scripts/initializeTiles.js"></script>
         <script src="scripts/app.js"></script>
+        <script src="scripts/actions.js"></script>
         
     </body>
 </html>

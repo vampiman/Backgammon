@@ -581,6 +581,7 @@ var turn = 'white';
 var selectedWhite = -1;
 var selectedBlack = -1;
 var selectedBlackCapture = -1;
+var selectedWhiteCapture = -1;
 $(() => {
 /*
 $(".white").click(function(){
@@ -620,12 +621,33 @@ $(".roll").click(function(){
         if(turn == 'white'){
             dices[0] = dices[0]*-1;
             dices[1] = dices[1]*-1;
-            if(checkWhiteStatus() == 'normal')normalMovesWhite(dices);
+            if(checkWhiteStatus() == 'normal')
+                if(normalMovesWhite(dices) == false){
+                    rolledDice = false;
+                    turn = 'black';
+                    resetOptions();
+                }
+            if(checkWhiteStatus() == 'captured')
+                if(capturedMovesWhite(dices) == false) {
+                    rolledDice = false;
+                    turn = 'black';
+                    resetOptions();
+                }
             
         }
-        if(turn == 'black'){
-            if(checkBlackStatus() == 'normal')normalMovesBlack(dices);
-            if(checkBlackStatus() == 'captured')capturedMovesBlack(dices);
+        else if(turn == 'black'){
+            if(checkBlackStatus() == 'normal')
+                if(normalMovesBlack(dices) == false){
+                    rolledDice = false;
+                    turn = 'white';
+                    resetOptions();
+                }
+            if(checkBlackStatus() == 'captured')
+                if(capturedMovesBlack(dices) == false){
+                    rolledDice = false;
+                    turn = 'white';
+                    resetOptions();
+                }
         }
         $('body').append('<p>' + dices + '</p>');
     }

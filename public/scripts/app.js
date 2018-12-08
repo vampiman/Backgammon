@@ -486,8 +486,23 @@ function capture(target){
     tile[target].occupied = 'free';
 }
 
+function whiteToWin(pieceID){
+    tile[whitePieces[pieceID].place].pieces--;
+    if(tile[whitePieces[pieceID].place].pieces == 0)
+        tile[whitePieces[pieceID].place].occupied = 'free';
+    tile[whitePieces[pieceID].place].objects.pop();
+    whitePieces[pieceID].place = 1;
+    whitePoints++;
+}
 
-
+function blackToWin(pieceID){
+    tile[blackPieces[pieceID - 15].place].pieces--;
+    if(tile[blackPieces[pieceID - 15].place].pieces == 0)
+        tile[blackPieces[pieceID - 15].place].occupied = 'free';
+    tile[blackPieces[pieceID - 15].place].objects.pop();
+    blackPieces[pieceID - 15].place = 24;
+    blackPoints++;
+}
 
 
 initializeWhite();
@@ -633,6 +648,12 @@ $(".roll").click(function(){
                     turn = 'black';
                     resetOptions();
                 }
+            if(checkWhiteStatus() == 'home')
+                if(homeMovesWhite(dices) == false) {
+                    rolledDice = false;
+                    turn = 'black';
+                    resetOptions();
+                }
             
         }
         else if(turn == 'black'){
@@ -644,6 +665,12 @@ $(".roll").click(function(){
                 }
             if(checkBlackStatus() == 'captured')
                 if(capturedMovesBlack(dices) == false){
+                    rolledDice = false;
+                    turn = 'white';
+                    resetOptions();
+                }
+            if(checkBlackStatus() == 'home')
+                if(homeMovesBlack(dices) == false){
                     rolledDice = false;
                     turn = 'white';
                     resetOptions();

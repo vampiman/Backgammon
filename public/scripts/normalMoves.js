@@ -119,6 +119,7 @@ function afterWhiteMove(el){
                 }
                 
                 selectedWhite = -1;
+                document.getElementById('whitePoint').style.display = 'none';
                 
                 
             }
@@ -180,11 +181,13 @@ function afterBlackMove(el){
 
                 //CHECK IF ANY 5th piece has to be changed back
                 for(var i = 0; i < blackPieces[selectedBlack - 15].options.length;i++){
-                    if(tile[blackPieces[selectedBlack - 15].options[i]].pieces >= 5){
-                        //CHANGE PIECE BACK
-                        var fifth = document.getElementsByClassName('tile' + blackPieces[selectedBlack - 15].options[i] + '-5')[0].firstChild;
-                        fifth.style.opacity = '1';
-                        fifth.setAttribute('onclick', 'selectBlackPiece(this)');
+                    if(blackPieces[selectedBlack - 15].options[i] != 42){
+                        if(tile[blackPieces[selectedBlack - 15].options[i]].pieces >= 5){
+                            //CHANGE PIECE BACK
+                            var fifth = document.getElementsByClassName('tile' + blackPieces[selectedBlack - 15].options[i] + '-5')[0].firstChild;
+                            fifth.style.opacity = '1';
+                            fifth.setAttribute('onclick', 'selectBlackPiece(this)');
+                        }
                     }
                 }
 
@@ -216,12 +219,24 @@ function afterBlackMove(el){
                                 rolledDice =  false;
                                 turn = 'white';
                             }
+                        if(status == 'home')
+                            if(homeMovesBlack(dices) == false){
+                                alert('No possible moves');
+                                rolledDice =  false;
+                                turn = 'white';
+                            }
 
                     }
                     else {
                         dices.splice(1,1);
                         if(status == 'normal')
                             if(normalMovesBlack(dices) == false){
+                                alert('No possible moves');
+                                rolledDice =  false;
+                                turn = 'white';
+                            }
+                        if(status == 'home')
+                            if(homeMovesBlack(dices) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'white';
@@ -235,6 +250,7 @@ function afterBlackMove(el){
                 }
                 
                 selectedBlack = -1;
+                document.getElementById('blackPoint').style.display = 'none';
                 
                 
             }

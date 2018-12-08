@@ -72,19 +72,26 @@ if(turn == 'black'){
             futureMoves[0].parentNode.removeChild(futureMoves[0]);
         //CHECK IF ANY 5th piece has to be changed back
         for(var i = 0; i < blackPieces[selectedBlack - 15].options.length;i++){
-            if(tile[blackPieces[selectedBlack - 15].options[i]].pieces >= 5){
-                //CHANGE PIECE BACK
-                var fifth = document.getElementsByClassName('tile' + blackPieces[selectedBlack - 15].options[i] + '-5')[0].firstChild;
-                fifth.style.opacity = '1';
-                fifth.setAttribute('onclick', 'selectBlackPiece(this)');
+            if(blackPieces[selectedBlack - 15].options[i] != 42){
+                if(tile[blackPieces[selectedBlack - 15].options[i]].pieces >= 5){
+                    //CHANGE PIECE BACK
+                    var fifth = document.getElementsByClassName('tile' + blackPieces[selectedBlack - 15].options[i] + '-5')[0].firstChild;
+                    fifth.style.opacity = '1';
+                    fifth.setAttribute('onclick', 'selectBlackPiece(this)');
+                }
             }
         }
         selectedBlack = -1;
+        document.getElementById('blackPoint').style.display = 'none';
     }
     else if(tile[place].occupied == turn && selectedBlack == -1){
         selectedBlack = tile[place].objects[tile[place].objects.length - 1];
         alert("Tile selected");
         for(var i = 0; i < blackPieces[selectedBlack-15].options.length;i++){
+            if(blackPieces[selectedBlack - 15].options[i] == 42){
+                document.getElementById('blackPoint').style.display = 'block';
+            }
+            else{
             var number = tile[blackPieces[selectedBlack-15].options[i]].pieces + 1;
             var img = document.createElement("img");
             img.setAttribute('onclick','afterBlackMove(this)');
@@ -100,6 +107,7 @@ if(turn == 'black'){
             document.getElementsByClassName("tile" + blackPieces[selectedBlack-15].options[i] + "-" + number)[0].appendChild(img);
             if(blackPieces[selectedBlack-15].options[0] == blackPieces[selectedBlack-15].options[1])
                 i++;
+            }
         }
     }
     }

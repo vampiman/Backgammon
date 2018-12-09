@@ -598,34 +598,6 @@ var selectedBlack = -1;
 var selectedBlackCapture = -1;
 var selectedWhiteCapture = -1;
 $(() => {
-/*
-$(".white").click(function(){
-    if(rolledDice == true){
-    var place = whitePieces[$(this).attr("id")].place;
-    //Deselect
-    if(selectedWhite != -1 && whitePieces[selectedWhite].place == place) {
-        selectedWhite = -1;
-        alert("Deselected piece");
-        $(".future").remove();
-    }
-    else if(tile[place].occupied == turn && selectedWhite == -1){
-        selectedWhite = tile[place].objects[tile[place].objects.length - 1];
-        alert("Tile selected");
-        for(var i = 0; i < whitePieces[selectedWhite].options.length;i++){
-            var number = tile[whitePieces[selectedWhite].options[i]].pieces + 1;
-            $(".tile" + whitePieces[selectedWhite].options[i] + "-" + number).append('<img onclick="afterMove(this)" class = "future" src = "stylesheets/images/whitePiece.png"></div>');
-            if(whitePieces[selectedWhite].options[0] == whitePieces[selectedWhite].options[1])
-                i++;
-        }
-    }
-    }
-    else
-        alert("You have to roll the dice first");
-});
-*/
-
-
-
 
 // Rolled the dice
 $(".roll").click(function(){
@@ -676,7 +648,8 @@ $(".roll").click(function(){
                     resetOptions();
                 }
         }
-        $('body').append('<p>' + dices + '</p>');
+        $('#rolled').remove();
+        $('.right').append('<p id="rolled">' + dices + '</p>');
     }
    else
         alert("You can't roll the dice again, make a move!")

@@ -28,6 +28,11 @@ body {
      
  }
 
+ .right{
+    grid-column: 3/4;
+    align-items: center;
+ }
+
  #board {
      width: 100%;
      vertical-align: middle;

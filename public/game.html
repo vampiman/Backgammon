@@ -5,7 +5,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="stylesheets/game.css">
     </head>
-    <body>
+    <body onload="toServer()">
         
         <div class = "container" id = "gaga">
              <!-- <div class = "counter"><p>5</p></div>   -->
@@ -36,6 +36,15 @@
             <div class ='tile' id='2'>tile 2: 0</div><br>
             <div class ='tile' id='1'>tile 1: 2 black</div><br>-->
         </div>
+        <div class="right"><button class = "roll">Roll the dice</button></div>
+        <p id="message"></p>
+        <script>
+            var socket = new WebSocket('ws://localhost:3000');
+            
+            socket.onmessage = function(event){
+                document.getElementById('message').innerHTML = event.data;
+            }
+        </script>
         <script src="scripts/capturedSelect.js"></script>
         <script src="scripts/capturedMoves.js"></script>
         <script src="scripts/normalMoves.js"></script>

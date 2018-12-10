@@ -4,13 +4,13 @@ function Game(){
     
 }
 
-Game.prototype.player1 = function(ID1){
-    this.ID1 = ID1;
+Game.prototype.player1 = function(socket1){
+    this.socket1 = socket1;
     this.players++;
 }
 
-Game.prototype.player2 = function(ID2){
-    this.ID2 = ID2;
+Game.prototype.player2 = function(socket2){
+    this.socket2 = socket2;
     this.players++
 }
 

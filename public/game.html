@@ -36,15 +36,10 @@
             <div class ='tile' id='2'>tile 2: 0</div><br>
             <div class ='tile' id='1'>tile 1: 2 black</div><br>-->
         </div>
-        <div class="right"><button class = "roll">Roll the dice</button></div>
+        <div class="right"><button class = "roll" style = "visibility: hidden">Roll the dice</button></div>
         <p id="message"></p>
-        <script>
-            var socket = new WebSocket('ws://localhost:3000');
-            
-            socket.onmessage = function(event){
-                document.getElementById('message').innerHTML = event.data;
-            }
-        </script>
+        <script src="scripts/communication.js"></script>
+        <script src="scripts/messages.js"></script>
         <script src="scripts/capturedSelect.js"></script>
         <script src="scripts/capturedMoves.js"></script>
         <script src="scripts/normalMoves.js"></script>

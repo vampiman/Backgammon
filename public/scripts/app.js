@@ -601,6 +601,10 @@ $(() => {
 
 // Rolled the dice
 $(".roll").click(function(){
+    var rollMsg = Messages.O_ROLLED_DICE;
+
+    socket.send(JSON.stringify(rollMsg));
+
     if(rolledDice == false){
         dices[0] = roll();
         dices[1] = roll();
@@ -650,6 +654,7 @@ $(".roll").click(function(){
         }
         $('#rolled').remove();
         $('.right').append('<p id="rolled">' + dices + '</p>');
+        $('.roll').css('visibility','hidden');
     }
    else
         alert("You can't roll the dice again, make a move!")

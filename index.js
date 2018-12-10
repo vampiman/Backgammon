@@ -4,11 +4,15 @@ var router = require('./routes/routes');
 var path = require('path');
 var websocket = require('ws');
 var Game = require('./game.js');
+var Messages = require('./public/scripts/messages');
+
+
 
 var app = express();
 
 var game1 = new Game();
 
+var IDGenerator = 0;
 var connections = [];
 var games = [game1];
 
@@ -30,12 +34,36 @@ wss.on('connection',(ws) => {
         games[games.length - 1].player1(ws);
         ws.send('Waiting for another player');
         console.log(`Player 1 from game ${games.length-1} is ready`);
+
     } else if(games[games.length - 1].players === 1){
         games[games.length - 1].player2(ws);
         ws.send('Opponent found, let the match begin!');
+        var beginMsg = Messages.O_BEGIN;
+        beginMsg.data = "Begin";
+        
         console.log(`Player 2 from game ${games.length-1} is ready`);
-        games[games.length - 1].ID1.send('Opponent found, let the match begin!');
+        games[games.length - 1].socket1.send(JSON.stringify(beginMsg));
     }
+
+    ws.on('message',(message) => {
+        var msg = JSON.parse(message);
+        var notFound = true;
+        var id = 0;
+        
+        if(msg.type == Messages.T_ROLLED_DICE){
+            while(notFound){
+                if(games[id].socket1 == ws){
+                    console.log(`Player1 from Game ${id} just rolled the dice!`);
+                    notFound = false;
+                }
+                else if(games[id].socket2 == ws){
+                    console.log(`Player2 from Game ${id} just rolled the dice!`)
+                    notFound = false;
+                }
+                id++;
+            }
+        }
+    });
 
    if(games[games.length - 1].players === 2)
     games.push(new Game()); 

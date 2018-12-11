@@ -30,30 +30,60 @@
 
     exports.T_BLACK_MOVE = "BLACK-MOVE";
     exports.O_BLACK_MOVE = {
-        type : exports.T_BLACK_MOVE,
-        data : {
-            pieceID : null,
-            target : null
-        }
+        type: exports.T_BLACK_MOVE,
+        pieceID: null,
+        target: null,
+        caputure: null,
+        endTurn: false
     }
 
     exports.T_WHITE_MOVE = "WHITE-MOVE";
     exports.O_WHITE_MOVE = {
-        type : exports.T_WHITE_MOVE,
-        data : {
-            pieceID : null,
-            target : null
-        }
+        type: exports.T_WHITE_MOVE,
+        pieceID: null,
+        target: null,
+        capture: null,
+        endTurn: false
+    }
+
+    exports.T_WHITE_CAPTURED_MOVE = "WHITE-CAPTURED-MOVE";
+    exports.O_WHITE_CAPTURED_MOVE = {
+        type: exports.T_WHITE_CAPTURED_MOVE,
+        pieceID: null,
+        target: null,
+        capture: null,
+        endTurn: false
+    }
+
+    exports.T_BLACK_CAPTURED_MOVE = "BLACK-CAPTURED-MOVE";
+    exports.O_BLACK_CAPTURED_MOVE = {
+        type: exports.T_BLACK_CAPTURED_MOVE,
+        pieceID: null,
+        target: null,
+        capture: null,
+        endTurn: false
+    }
+
+    //White got a point
+    exports.T_WHITE_TO_WIN = "WHITE-TO-WIN";
+    exports.O_WHITE_TO_WIN = {
+        type: exports.T_WHITE_TO_WIN,
+        //PieceID
+        data: null
+    }
+
+    //Black got a point
+    exports.T_BLACK_TO_WIN = "BLACK-TO-WIN";
+    exports.O_BLACK_TO_WIN = {
+        type: exports.T_BLACK_TO_WIN,
+        //PieceID
+        data: null
     }
 
     exports.T_ROLLED_DICE = "ROLLED-DICE";
     exports.O_ROLLED_DICE = {
         type : exports.T_ROLLED_DICE,
-        data : {
-            //PLAYER 1 ("1") OR PLAYER 2 ("2")
-            player : null,
-            dices : []
-        }
+        data : null
     }
 
 }(typeof exports === "undefined" ? this.Messages = {} : exports));

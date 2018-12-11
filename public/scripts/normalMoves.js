@@ -1,5 +1,12 @@
 function afterWhiteMove(el){
             if(turn == 'white'){
+                //Create element to send
+                var whiteMove = Messages.O_WHITE_MOVE;
+                whiteMove.capture = null;
+                whiteMove.endTurn = false;
+               
+
+
                 //Remember the place where the piece was
                 var oldPlace = whitePieces[selectedWhite].place;
                 //Get the parent class name
@@ -20,6 +27,7 @@ function afterWhiteMove(el){
                 img.id = selectedWhite;
                 //Append it to the selected future move and check capture
                 if(whiteCaptureAnything(selectedWhite,arr[0]) == true){
+                    whiteMove.capture = arr[0];
                     capture(arr[0]);
                     var targetTile = document.getElementsByClassName('tile' + arr[0] +'-1');
                     targetTile[0].removeChild(targetTile[0].firstChild);
@@ -68,6 +76,11 @@ function afterWhiteMove(el){
                 var counter = document.getElementById("count" + whitePieces[selectedWhite].place);
                 var number = tile[whitePieces[selectedWhite].place].pieces - 1;
                 document.getElementById("count" + whitePieces[selectedWhite].place).innerHTML = number; 
+
+                //Update message info
+                whiteMove.pieceID = selectedWhite;
+                whiteMove.target = arr[0];
+                //Update data
                 whitePieces[selectedWhite].move((whitePieces[selectedWhite].place - arr[0])*-1);
                 
                 document.getElementById("count" + whitePieces[selectedWhite].place).innerHTML = tile[whitePieces[selectedWhite].place].pieces;
@@ -79,6 +92,7 @@ function afterWhiteMove(el){
                     if(dices[0] + dices[1] == (oldPlace - arr[0])*-1){
                         rolledDice = false;
                         turn = 'black';
+                        whiteMove.endTurn = true;
                     }
                     else if(dices[0] == (oldPlace - arr[0])*-1){
                         dices.splice(0,1);
@@ -87,12 +101,14 @@ function afterWhiteMove(el){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'black';
+                                whiteMove.endTurn = true;
                             }
                         if(status == 'home')
                             if(homeMovesWhite(dices) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'black';
+                                whiteMove.endTurn = true;
                             }
 
                     }
@@ -103,21 +119,27 @@ function afterWhiteMove(el){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'black';
+                                whiteMove.endTurn = true;
                             }
                         if(status == 'home')
                             if(homeMovesWhite(dices) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'black';
+                                whiteMove.endTurn = true;
                             }
                         
                     }
                 }
                 else{
                     rolledDice = false;
-                    turn = 'black'
+                    turn = 'black';
+                    whiteMove.endTurn = true;
                 }
                 
+                
+                //Send update to server
+                socket.send(JSON.stringify(whiteMove));
                 selectedWhite = -1;
                 document.getElementById('whitePoint').style.display = 'none';
                 
@@ -131,6 +153,13 @@ function afterWhiteMove(el){
 /////////////NOT TESTED YET///////////////////
 function afterBlackMove(el){
             if(turn == 'black'){
+                //Create element to send
+                var blackMove = Messages.O_BLACK_MOVE;
+
+                //Reset data to avoid conflicts
+                blackMove.capture = null;
+                blackMove.endTurn = false;
+
                 //Remember the place where the piece was
                 oldPlace = blackPieces[selectedBlack - 15].place;
                 //Get the parent class name
@@ -199,6 +228,11 @@ function afterBlackMove(el){
                 var counter = document.getElementById("count" + blackPieces[selectedBlack - 15].place);
                 var number = tile[blackPieces[selectedBlack - 15].place].pieces - 1;
                 document.getElementById("count" + blackPieces[selectedBlack - 15].place).innerHTML = number; 
+                
+                //Update message data
+                blackMove.pieceID = selectedBlack - 15;
+                blackMove.target = arr[0];
+                //Update data
                 blackPieces[selectedBlack - 15].move(arr[0] - blackPieces[selectedBlack - 15].place);
                 
                 document.getElementById("count" + blackPieces[selectedBlack - 15].place).innerHTML = tile[blackPieces[selectedBlack - 15].place].pieces;
@@ -210,6 +244,7 @@ function afterBlackMove(el){
                     if(dices[0] + dices[1] == (oldPlace - arr[0])*-1){
                         rolledDice = false;
                         turn = 'white';
+                        blackMove.endTurn = true;
                     }
                     else if(dices[0] == (oldPlace - arr[0])*-1){
                         dices.splice(0,1);
@@ -218,12 +253,14 @@ function afterBlackMove(el){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'white';
+                                blackMove.endTurn = true;
                             }
                         if(status == 'home')
                             if(homeMovesBlack(dices) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'white';
+                                blackMove.endTurn = true;
                             }
 
                     }
@@ -234,22 +271,30 @@ function afterBlackMove(el){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'white';
+                                blackMove.endTurn = true;
                             }
                         if(status == 'home')
                             if(homeMovesBlack(dices) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'white';
+                                blackMove.endTurn = true;
                             }
                         
                     }
                 }
                 else{
                     rolledDice = false;
-                    turn = 'white'
+                    turn = 'white';
+                    blackMove.endTurn = true;
                 }
                 
+
+                //Send update to server
+                socket.send(JSON.stringify(blackMove));
+                //Unselect black
                 selectedBlack = -1;
+                //Disable the point cap button
                 document.getElementById('blackPoint').style.display = 'none';
                 
                 

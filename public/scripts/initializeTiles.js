@@ -10,6 +10,7 @@ $(() => {
     */
     
     //$('body').append('<div><button class = "roll">Roll the dice</dice></div>');
+    $('.right').append('<p id="rolled"></p>');
     $('body').append('<div><button onclick = "capBlack(this)" id = "blackPoint" style = "display: none">Cap the black piece</dice></div>');
     $('body').append('<div><button onclick = "capWhite(this)" id = "whitePoint" style = "display: none">Cap the white piece</dice></div>');
 

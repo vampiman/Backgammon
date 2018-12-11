@@ -603,7 +603,7 @@ $(() => {
 $(".roll").click(function(){
     var rollMsg = Messages.O_ROLLED_DICE;
 
-    socket.send(JSON.stringify(rollMsg));
+    
 
     if(rolledDice == false){
         dices[0] = roll();
@@ -652,9 +652,13 @@ $(".roll").click(function(){
                     resetOptions();
                 }
         }
-        $('#rolled').remove();
-        $('.right').append('<p id="rolled">' + dices + '</p>');
+        $('#rolled').html(dices);
         $('.roll').css('visibility','hidden');
+
+
+        //SEND THE DICES TO THE SERVER
+        rollMsg.data = dices;
+        socket.send(JSON.stringify(rollMsg));
     }
    else
         alert("You can't roll the dice again, make a move!")

@@ -50,19 +50,57 @@ wss.on('connection',(ws) => {
         var notFound = true;
         var id = 0;
         
+        //HANDLE ROLLED DICE
         if(msg.type == Messages.T_ROLLED_DICE){
             while(notFound){
                 if(games[id].socket1 == ws){
-                    console.log(`Player1 from Game ${id} just rolled the dice!`);
+                    console.log(`Player1 from Game ${id} just rolled ${msg.data}!`);
+                    games[id].socket2.send(message);
                     notFound = false;
                 }
                 else if(games[id].socket2 == ws){
-                    console.log(`Player2 from Game ${id} just rolled the dice!`)
+                    console.log(`Player2 from Game ${id} just rolled ${msg.data}!`)
+                    games[id].socket1.send(message);
+                    notFound = false;
+                }
+                id++;
+            }
+        }//HANDLE WHITE MOVE
+        else if(msg.type == Messages.T_WHITE_MOVE){
+            while(notFound){
+                if(games[id].socket1 == ws){
+                    console.log(`Player1 from Game ${id} just moved piece ${msg.pieceID} to tile ${msg.target}!`);
+                    if(msg.endTurn == true)
+                        console.log('Player1 ended his turn');
+                    games[id].socket2.send(message);
+                    notFound = false;
+                }
+                else if(games[id].socket2 == ws){
+                    console.log(`Player2 from Game ${id} just moved piece ${msg.pieceID} to tile ${msg.target}!`);
+                    games[id].socket1.send(message);
+                    notFound = false;
+                }
+                id++;
+            }
+        }//HANDLE BLACK MOVE
+        else if(msg.type == Messages.T_BLACK_MOVE){
+            while(notFound){
+                if(games[id].socket1 == ws){
+                    console.log(`Player1 from Game ${id} just moved piece ${msg.pieceID} to tile ${msg.target}!`);
+                    if(msg.endTurn == true)
+                        console.log('Player1 ended his turn');
+                    games[id].socket2.send(message);
+                    notFound = false;
+                }
+                else if(games[id].socket2 == ws){
+                    console.log(`Player2 from Game ${id} just moved piece ${msg.pieceID} to tile ${msg.target}!`);
+                    games[id].socket1.send(message);
                     notFound = false;
                 }
                 id++;
             }
         }
+        
     });
 
    if(games[games.length - 1].players === 2)

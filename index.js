@@ -65,8 +65,9 @@ wss.on('connection',(ws) => {
                 }
                 id++;
             }
-        }//HANDLE WHITE MOVE
-        else if(msg.type == Messages.T_WHITE_MOVE){
+        }
+        //HANDLE WHITE MOVE
+        else if(msg.type == Messages.T_WHITE_MOVE || msg.type == Messages.T_WHITE_CAPTURED_MOVE){
             while(notFound){
                 if(games[id].socket1 == ws){
                     console.log(`Player1 from Game ${id} just moved piece ${msg.pieceID} to tile ${msg.target}!`);
@@ -82,8 +83,9 @@ wss.on('connection',(ws) => {
                 }
                 id++;
             }
-        }//HANDLE BLACK MOVE
-        else if(msg.type == Messages.T_BLACK_MOVE){
+        }
+        //HANDLE BLACK MOVE
+        else if(msg.type == Messages.T_BLACK_MOVE || msg.type == Messages.T_BLACK_CAPTURED_MOVE){
             while(notFound){
                 if(games[id].socket1 == ws){
                     console.log(`Player1 from Game ${id} just moved piece ${msg.pieceID} to tile ${msg.target}!`);
@@ -96,6 +98,51 @@ wss.on('connection',(ws) => {
                     console.log(`Player2 from Game ${id} just moved piece ${msg.pieceID} to tile ${msg.target}!`);
                     games[id].socket1.send(message);
                     notFound = false;
+                }
+                id++;
+            }
+        }
+        //HANDLE WHITE POINT
+        else if(msg.type == Messages.T_WHITE_TO_WIN){
+            while(notFound){
+                if(games[id].socket1 == ws){
+                    games[id].points1++;
+                    console.log(`Player1 from Game ${id} just scored a point`);
+                    if(msg.endTurn == true)
+                        console.log('Player1 ended his turn');
+                    games[id].socket2.send(message);
+                    notFound = false;
+                    if(games[id].points1 == 15)
+                        console.log('Player 1 just won');
+                }
+                else if(games[id].socket2 == ws){
+                    console.log(`Player2 from Game ${id} just scored a point`);
+                    games[id].socket1.send(message);
+                    notFound = false;
+                }
+                id++;
+            }
+        }
+        //HANDLE BLACK POINT
+        else if(msg.type == Messages.T_BLACK_TO_WIN){
+            while(notFound){
+                if(games[id].socket1 == ws){
+                    games[id].points1++;
+                    console.log(`Player1 from Game ${id} just scored a point`);
+                    if(msg.endTurn == true)
+                        console.log('Player1 ended his turn');
+                    games[id].socket2.send(message);
+                    notFound = false;
+                    
+                }
+                else if(games[id].socket2 == ws){
+                    console.log(`Player2 from Game ${id} just scored a point`);
+                    if(msg.endTurn == true)
+                        console.log('Player2 ended his turn');
+                    games[id].socket1.send(message);
+                    notFound = false;
+                    if(games[id].points1 == 15)
+                        console.log('Player 2 just won');
                 }
                 id++;
             }

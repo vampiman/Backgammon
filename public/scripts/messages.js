@@ -69,7 +69,8 @@
     exports.O_WHITE_TO_WIN = {
         type: exports.T_WHITE_TO_WIN,
         //PieceID
-        data: null
+        pieceID: null,
+        endTurn: false
     }
 
     //Black got a point
@@ -77,7 +78,9 @@
     exports.O_BLACK_TO_WIN = {
         type: exports.T_BLACK_TO_WIN,
         //PieceID
-        data: null
+        pieceID: null,
+        endTurn: false
+
     }
 
     exports.T_ROLLED_DICE = "ROLLED-DICE";

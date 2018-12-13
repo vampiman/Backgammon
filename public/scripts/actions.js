@@ -1,5 +1,5 @@
 //TO DO: Moree than 5 pieces functionality (DONE)
-//MORE THAN 5 PIECES AFTER CAPTURE
+//MORE THAN 5 PIECES AFTER CAPTURE REEEEEEEEEEEEEEEEEEEEEEEE
 //Tell the player that he can't move on wrong tile 
 //CAN'T SELECT CAPTURED PIECES 2 TIMES
 //WHITE CAPTURED MOVE + CHECK FOR CAPTURE AFTER MOVE (DONE)
@@ -7,6 +7,7 @@
 //CAN ONLY DO ONE MOVE WHEN CAPTURED, NOT A COMPOSED MOVE
 //CHECK IF IN HOME AFTER MOVE (IMPORTANT) REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE (DONE)
 //WHEN GETTING A POINT, MAKE SURE TO TAKE THE SMALLEST DICE POSSIBLE FOR THE POINT
+//M
 //DOUBLE MOVE
 
 var whitePlaceHolders = [];
@@ -14,6 +15,11 @@ var blackPlaceHolder;
 
 ///////////////NOT TESTED YET/////////////////
 function capWhite(){
+    //Create the websocket message
+    var scoreWhite = Messages.O_WHITE_TO_WIN;
+    scoreWhite.pieceID = selectedWhite;
+    scoreWhite.endTurn = false;
+
     document.getElementById('whitePoint').style.display = 'none';
 
     var x = document.getElementsByClassName("future");
@@ -54,6 +60,7 @@ function capWhite(){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'black';
+                                scoreWhite.endTurn = true;
                             }
                     }
                     else if(whitePieces[selectedWhite].options[1] == 42){
@@ -63,6 +70,7 @@ function capWhite(){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'black';
+                                scoreWhite.endTurn = true;
                             }
 
                     }
@@ -70,24 +78,33 @@ function capWhite(){
                         resetOptions();
                         rolledDice =  false;
                         turn = 'black';
+                        scoreWhite.endTurn = true;
                         
                     }
                 }
                 else{
                     resetOptions();
                     rolledDice = false;
-                    turn = 'black'
+                    turn = 'black';
+                    scoreWhite.endTurn = true;
                 }
 
 
     whiteToWin(selectedWhite);
 
-
-
+    //Send the message to the server
+    socket.send(JSON.stringify(scoreWhite));
+    
     selectedWhite = -1;
 }
 ///////////////NOT TESTED YET/////////////////////
 function capBlack(){
+    //Create the websocket message
+    var scoreBlack = Messages.O_BLACK_TO_WIN;
+    scoreBlack.pieceID = selectedBlack - 15;
+    scoreBlack.endTurn = false;
+
+
     document.getElementById('blackPoint').style.display = 'none';
 
     var x = document.getElementsByClassName("future");
@@ -128,6 +145,7 @@ function capBlack(){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'white';
+                                scoreBlack.endTurn = true;
                             }
                     }
                     else if(blackPieces[selectedBlack - 15].options[1] == 42){
@@ -137,6 +155,7 @@ function capBlack(){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'white';
+                                scoreBlack.endTurn = true;
                             }
 
                     }
@@ -144,19 +163,21 @@ function capBlack(){
                         resetOptions();
                         rolledDice =  false;
                         turn = 'white';
-                        
+                        scoreBlack.endTurn = true;
                     }
                 }
                 else{
                     resetOptions();
                     rolledDice = false;
-                    turn = 'white'
+                    turn = 'white';
+                    scoreBlack.endTurn = true;
                 }
 
 
     blackToWin(selectedBlack);
 
-
+    //Send the message to the server
+    socket.send(JSON.stringify(scoreBlack));
 
     selectedBlack = -1;
 }

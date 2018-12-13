@@ -1,7 +1,7 @@
 function Game(){
     this.players = 0;
-    
-    
+    this.points1 = 0;
+    this.points2 = 0;
 }
 
 Game.prototype.player1 = function(socket1){

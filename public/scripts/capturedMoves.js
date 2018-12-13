@@ -1,6 +1,11 @@
 
 ////////////////////TO TEST/////////////////////////
 function afterWhiteCapturedMove(el) {
+        //Create message to send
+                var capturedWhiteMove = Messages.O_WHITE_CAPTURED_MOVE;
+                capturedWhiteMove.capture = null;
+                capturedWhiteMove.endTurn = false;
+
      //Remember the place where the piece was
         var oldPlace = whitePieces[selectedWhiteCapture].place;
         //Get the parent class name
@@ -17,6 +22,7 @@ function afterWhiteCapturedMove(el) {
         img.id = selectedWhiteCapture;
         
         if(whiteCaptureAnything(selectedWhiteCapture,arr[0]) == true){
+                    capturedWhiteMove.capture = arr[0];
                     capture(arr[0]);
                     var targetTile = document.getElementsByClassName('tile' + arr[0] +'-1');
                     targetTile[0].removeChild(targetTile[0].firstChild);
@@ -44,6 +50,11 @@ function afterWhiteCapturedMove(el) {
             i--;
         }
 
+        //Update message info
+        capturedWhiteMove.pieceID = selectedWhiteCapture;
+        capturedWhiteMove.target = arr[0];
+
+        //Update data
         whitePieces[selectedWhiteCapture].move((whitePieces[selectedWhiteCapture].place - arr[0])*-1);
         //Switch turns or next move
                 resetOptions();
@@ -52,6 +63,7 @@ function afterWhiteCapturedMove(el) {
                     if(dices[0] + dices[1] == (oldPlace - arr[0])*-1){
                         rolledDice = false;
                         turn = 'black';
+                        capturedWhiteMove.endTurn = true;
                     }
                     else if(dices[0] == (oldPlace - arr[0])*-1){
                         dices.splice(0,1);
@@ -60,11 +72,13 @@ function afterWhiteCapturedMove(el) {
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'black';
+                                capturedWhiteMove.endTurn = true;
                             }
                         if(status == 'captured')
                             if(capturedMovesWhite(dices) == false){
                                 rolledDice = false;
                                 turn = 'black';
+                                capturedWhiteMove.endTurn = true;
                             }
                     }
                     else {
@@ -74,17 +88,20 @@ function afterWhiteCapturedMove(el) {
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'black';
+                                capturedWhiteMove.endTurn = true;
                             }
                         if(status == 'captured')
                             if(capturedMovesWhite(dices) == false){
                                 rolledDice = false;
                                 turn = 'black';
+                                capturedWhiteMove.endTurn = true;
                             }
                     }
                 }
                 else{
                     rolledDice = false;
                     turn = 'black';
+                    capturedWhiteMove.endTurn = true;
                 }
                 
                 //Remove black piece image
@@ -94,6 +111,8 @@ function afterWhiteCapturedMove(el) {
                 document.getElementById('whiteCaptureCount').innerHTML = capturedWhite.length;
                 document.getElementById("count" + whitePieces[selectedWhiteCapture].place).innerHTML = tile[whitePieces[selectedWhiteCapture].place].pieces;
                 
+                socket.send(JSON.stringify(capturedWhiteMove));
+
                 selectedWhiteCapture = -1;
 
         
@@ -101,6 +120,11 @@ function afterWhiteCapturedMove(el) {
 
 
 function afterBlackCapturedMove(el){
+    //Create message to send
+        var capturedBlackMove = Messages.O_BLACK_CAPTURED_MOVE;
+        capturedBlackMove.capture = null;
+        capturedBlackMove.endTurn = false;
+
      //Remember the place where the piece was
         var oldPlace = blackPieces[selectedBlackCapture - 15].place;
         //Get the parent class name
@@ -118,6 +142,7 @@ function afterBlackCapturedMove(el){
         var x = document.getElementsByClassName("future");
         
         if(blackCaptureAnything(selectedBlackCapture,arr[0]) == true){
+                    capturedBlackMove.capture = arr[0];
                     capture(arr[0]);
                     var targetTile = document.getElementsByClassName('tile' + arr[0] +'-1');
                     targetTile[0].removeChild(targetTile[0].firstChild);
@@ -152,6 +177,10 @@ function afterBlackCapturedMove(el){
             i--;
         }
 
+        //Update message info
+        capturedBlackMove.pieceID = selectedBlackCapture - 15;
+        capturedBlackMove.target = arr[0];
+
         blackPieces[selectedBlackCapture-15].move((blackPieces[selectedBlackCapture-15].place - arr[0])*-1);
         //Switch turns or next move
                 resetOptions();
@@ -160,6 +189,7 @@ function afterBlackCapturedMove(el){
                     if(dices[0] + dices[1] == (oldPlace - arr[0])*-1){
                         rolledDice = false;
                         turn = 'white';
+                        capturedBlackMove.endTurn = true;
                     }
                     else if(dices[0] == (oldPlace - arr[0])*-1){
                         dices.splice(0,1);
@@ -168,11 +198,13 @@ function afterBlackCapturedMove(el){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'white';
+                                capturedBlackMove.endTurn = true;
                             }
                         if(status == 'captured')
                             if(capturedMovesBlack(dices) == false){
                                 rolledDice = false;
                                 turn = 'white';
+                                capturedBlackMove.endTurn = true;
                             }
 
                     }
@@ -183,11 +215,13 @@ function afterBlackCapturedMove(el){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'white';
+                                capturedBlackMove.endTurn = true;
                             }
                         if(status == 'captured')
                             if(capturedMovesBlack(dices) == false){
                                 rolledDice = false;
                                 turn = 'white';
+                                capturedBlackMove.endTurn = true;
                             }
                         
                     }
@@ -195,6 +229,7 @@ function afterBlackCapturedMove(el){
                 else{
                     rolledDice = false;
                     turn = 'white';
+                    capturedBlackMove.endTurn = true;
                 }
                 
                 //Remove black piece image
@@ -204,6 +239,9 @@ function afterBlackCapturedMove(el){
                 document.getElementById('blackCaptureCount').innerHTML = capturedBlack.length;
                 document.getElementById("count" + blackPieces[selectedBlackCapture - 15].place).innerHTML = tile[blackPieces[selectedBlackCapture - 15].place].pieces;
                 
+                //Send the message
+                socket.send(JSON.stringify(capturedBlackMove));
+
                 selectedBlackCapture = -1;
 
         

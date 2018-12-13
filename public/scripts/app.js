@@ -652,7 +652,7 @@ $(".roll").click(function(){
                     resetOptions();
                 }
         }
-        $('#rolled').html(dices);
+        $('#rolled').html(dices[0] + ' ' + dices[1]);
         $('.roll').css('visibility','hidden');
 
 

@@ -180,6 +180,7 @@ function afterBlackMove(el){
 
                 //Append it to the selected future move
                 if(blackCaptureAnything(selectedBlack,arr[0]) == true){
+                    blackMove.capture = arr[0];
                     capture(arr[0]);
                     var targetTile = document.getElementsByClassName('tile' + arr[0] +'-1');
                     targetTile[0].removeChild(targetTile[0].firstChild);

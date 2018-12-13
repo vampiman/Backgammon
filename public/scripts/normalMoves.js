@@ -101,6 +101,7 @@ function afterWhiteMove(el){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'black';
+                                whiteMove.pieceID = null;
                                 whiteMove.endTurn = true;
                             }
                         if(status == 'home')
@@ -108,6 +109,7 @@ function afterWhiteMove(el){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'black';
+                                whiteMove.pieceID = null;
                                 whiteMove.endTurn = true;
                             }
 
@@ -119,6 +121,7 @@ function afterWhiteMove(el){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'black';
+                                whiteMove.pieceID = null;
                                 whiteMove.endTurn = true;
                             }
                         if(status == 'home')
@@ -126,6 +129,7 @@ function afterWhiteMove(el){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'black';
+                                whiteMove.pieceID = null;
                                 whiteMove.endTurn = true;
                             }
                         
@@ -254,6 +258,7 @@ function afterBlackMove(el){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'white';
+                                blackMove.pieceID = null;
                                 blackMove.endTurn = true;
                             }
                         if(status == 'home')
@@ -261,6 +266,7 @@ function afterBlackMove(el){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'white';
+                                blackMove.pieceID = null;
                                 blackMove.endTurn = true;
                             }
 
@@ -272,6 +278,7 @@ function afterBlackMove(el){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'white';
+                                blackMove.pieceID = null;
                                 blackMove.endTurn = true;
                             }
                         if(status == 'home')
@@ -279,6 +286,7 @@ function afterBlackMove(el){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'white';
+                                blackMove.pieceID = null;
                                 blackMove.endTurn = true;
                             }
                         

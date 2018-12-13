@@ -72,12 +72,14 @@ function afterWhiteCapturedMove(el) {
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'black';
+                                capturedWhiteMove.pieceID = null;
                                 capturedWhiteMove.endTurn = true;
                             }
                         if(status == 'captured')
                             if(capturedMovesWhite(dices) == false){
                                 rolledDice = false;
                                 turn = 'black';
+                                capturedWhiteMove.pieceID = null;
                                 capturedWhiteMove.endTurn = true;
                             }
                     }
@@ -88,12 +90,14 @@ function afterWhiteCapturedMove(el) {
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'black';
+                                capturedWhiteMove.pieceID = null;
                                 capturedWhiteMove.endTurn = true;
                             }
                         if(status == 'captured')
                             if(capturedMovesWhite(dices) == false){
                                 rolledDice = false;
                                 turn = 'black';
+                                capturedWhiteMove.pieceID = null;
                                 capturedWhiteMove.endTurn = true;
                             }
                     }
@@ -198,12 +202,14 @@ function afterBlackCapturedMove(el){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'white';
+                                capturedBlackMove.pieceID = null;
                                 capturedBlackMove.endTurn = true;
                             }
                         if(status == 'captured')
                             if(capturedMovesBlack(dices) == false){
                                 rolledDice = false;
                                 turn = 'white';
+                                capturedBlackMove.pieceID = null;
                                 capturedBlackMove.endTurn = true;
                             }
 
@@ -215,12 +221,14 @@ function afterBlackCapturedMove(el){
                                 alert('No possible moves');
                                 rolledDice =  false;
                                 turn = 'white';
+                                capturedBlackMove.pieceID = null;
                                 capturedBlackMove.endTurn = true;
                             }
                         if(status == 'captured')
                             if(capturedMovesBlack(dices) == false){
                                 rolledDice = false;
                                 turn = 'white';
+                                capturedBlackMove.pieceID = null;
                                 capturedBlackMove.endTurn = true;
                             }
                         

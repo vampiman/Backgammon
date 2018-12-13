@@ -13,7 +13,16 @@ socket.onmessage = function(event){
     }
     //DICE OF THE OPPONENT
     else if(fromServer.type == Messages.T_ROLLED_DICE){
-        document.getElementById('rolled').innerHTML = `Opponent rolled ${fromServer.data}`;
+        if(fromServer.data != null)
+            document.getElementById('rolled').innerHTML = `Opponent rolled ${fromServer.data}`;
+        else{
+            if(turn == 'white')
+                turn = 'black';
+            else
+                turn = 'white';
+            
+            document.getElementsByClassName('roll')[0].style.visibility = 'visible';
+        }
     } 
     //WHITE MOVED
     else if(fromServer.type == Messages.T_WHITE_MOVE){
@@ -22,7 +31,8 @@ socket.onmessage = function(event){
         if(fromServer.capture != null)
             updateCapture(fromServer.target);
 
-        updateWhiteMove(fromServer.pieceID, fromServer.target);
+        if(fromServer.pieceID != null)
+            updateWhiteMove(fromServer.pieceID, fromServer.target);
         
         if(fromServer.endTurn == true){
             document.getElementsByClassName('roll')[0].style.visibility = 'visible';
@@ -36,7 +46,9 @@ socket.onmessage = function(event){
         if(fromServer.capture != null)
             updateCapture(fromServer.target);
 
-        updateBlackMove(fromServer.pieceID, fromServer.target);
+        if(fromServer.pieceID != null)
+            updateBlackMove(fromServer.pieceID, fromServer.target);
+
         if(fromServer.endTurn == true){
             document.getElementsByClassName('roll')[0].style.visibility = 'visible';
             turn = 'white';
@@ -50,7 +62,8 @@ socket.onmessage = function(event){
         if(fromServer.capture != null)
             updateCapture(fromServer.target);
         
-        updateWhiteCapturedMove(fromServer.pieceID, fromServer.target);
+        if(fromServer.pieceID != null)
+            updateWhiteCapturedMove(fromServer.pieceID, fromServer.target);
         
         if(fromServer.endTurn == true){
             document.getElementsByClassName('roll')[0].style.visibility = 'visible';
@@ -64,7 +77,8 @@ socket.onmessage = function(event){
         if(fromServer.capture != null)
             updateCapture(fromServer.target);
         
-        updateBlackCapturedMove(fromServer.pieceID, fromServer.target);
+        if(fromServer.pieceID != null)
+            updateBlackCapturedMove(fromServer.pieceID, fromServer.target);
         
         if(fromServer.endTurn == true){
             document.getElementsByClassName('roll')[0].style.visibility = 'visible';
@@ -75,7 +89,8 @@ socket.onmessage = function(event){
     else if(fromServer.type == Messages.T_WHITE_TO_WIN){
         document.getElementById('rolled').innerHTML = `Opponent just capped piece ${fromServer.pieceID}!`;
 
-        removeWhitePiece(fromServer.pieceID);
+        if(fromServer.pieceID != null)
+            removeWhitePiece(fromServer.pieceID);
 
         if(whitePoints == 15)
             document.getElementById('rolled').innerHTML = `White just won`;
@@ -89,7 +104,8 @@ socket.onmessage = function(event){
     else if(fromServer.type == Messages.T_BLACK_TO_WIN){
         document.getElementById('rolled').innerHTML = `Opponent just capped piece ${fromServer.pieceID}!`;
 
-        removeBlackPiece(fromServer.pieceID);
+        if(fromServer.pieceID != null)
+            removeBlackPiece(fromServer.pieceID);
 
         if(blackPoints == 15)
             document.getElementById('rolled').innerHTML = `Black just won`;

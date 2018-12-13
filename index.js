@@ -54,7 +54,10 @@ wss.on('connection',(ws) => {
         if(msg.type == Messages.T_ROLLED_DICE){
             while(notFound){
                 if(games[id].socket1 == ws){
-                    console.log(`Player1 from Game ${id} just rolled ${msg.data}!`);
+                    if(msg.pieceID != null)
+                        console.log(`Player1 from Game ${id} just rolled ${msg.data}!`);
+                    else
+                        console.log('Player1 can\'t move anywhere');
                     games[id].socket2.send(message);
                     notFound = false;
                 }
@@ -70,7 +73,10 @@ wss.on('connection',(ws) => {
         else if(msg.type == Messages.T_WHITE_MOVE || msg.type == Messages.T_WHITE_CAPTURED_MOVE){
             while(notFound){
                 if(games[id].socket1 == ws){
-                    console.log(`Player1 from Game ${id} just moved piece ${msg.pieceID} to tile ${msg.target}!`);
+                    if(msg.pieceID != null)
+                        console.log(`Player1 from Game ${id} just moved piece ${msg.pieceID} to tile ${msg.target}!`);
+                    else
+                        console.log('Player1 can\'t move anywhere');
                     if(msg.endTurn == true)
                         console.log('Player1 ended his turn');
                     games[id].socket2.send(message);
@@ -88,14 +94,20 @@ wss.on('connection',(ws) => {
         else if(msg.type == Messages.T_BLACK_MOVE || msg.type == Messages.T_BLACK_CAPTURED_MOVE){
             while(notFound){
                 if(games[id].socket1 == ws){
-                    console.log(`Player1 from Game ${id} just moved piece ${msg.pieceID} to tile ${msg.target}!`);
+                    if(msg.pieceID != null)
+                        console.log(`Player1 from Game ${id} just moved piece ${msg.pieceID} to tile ${msg.target}!`);
+                    else
+                        console.log('Player1 can\'t move anywhere');
                     if(msg.endTurn == true)
                         console.log('Player1 ended his turn');
                     games[id].socket2.send(message);
                     notFound = false;
                 }
                 else if(games[id].socket2 == ws){
+                    if(msg.pieceID != null)
                     console.log(`Player2 from Game ${id} just moved piece ${msg.pieceID} to tile ${msg.target}!`);
+                    else
+                        console.log('Player1 can\'t move anywhere');
                     games[id].socket1.send(message);
                     notFound = false;
                 }
@@ -107,7 +119,10 @@ wss.on('connection',(ws) => {
             while(notFound){
                 if(games[id].socket1 == ws){
                     games[id].points1++;
-                    console.log(`Player1 from Game ${id} just scored a point`);
+                    if(msg.pieceID != null)
+                        console.log(`Player1 from Game ${id} just scored a point`);
+                    else
+                        console.log('Player1 can\'t move anywhere');
                     if(msg.endTurn == true)
                         console.log('Player1 ended his turn');
                     games[id].socket2.send(message);

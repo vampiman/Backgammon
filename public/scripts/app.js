@@ -608,56 +608,69 @@ $(".roll").click(function(){
     if(rolledDice == false){
         dices[0] = roll();
         dices[1] = roll();
+
+        //SEND THE DICES TO THE SERVER
+        rollMsg.data = dices;
+
         rolledDice = true;
         if(turn == 'white'){
             dices[0] = dices[0]*-1;
             dices[1] = dices[1]*-1;
+
+            
+
             if(checkWhiteStatus() == 'normal')
                 if(normalMovesWhite(dices) == false){
                     rolledDice = false;
                     turn = 'black';
                     resetOptions();
+                    rollMsg.data = null;
                 }
             if(checkWhiteStatus() == 'captured')
                 if(capturedMovesWhite(dices) == false) {
                     rolledDice = false;
                     turn = 'black';
                     resetOptions();
+                    rollMsg.data = null;
                 }
             if(checkWhiteStatus() == 'home')
                 if(homeMovesWhite(dices) == false) {
                     rolledDice = false;
                     turn = 'black';
                     resetOptions();
+                    rollMsg.data = null;
                 }
             
         }
         else if(turn == 'black'){
+            
             if(checkBlackStatus() == 'normal')
                 if(normalMovesBlack(dices) == false){
                     rolledDice = false;
                     turn = 'white';
                     resetOptions();
+                    rollMsg.data = null;
                 }
             if(checkBlackStatus() == 'captured')
                 if(capturedMovesBlack(dices) == false){
                     rolledDice = false;
                     turn = 'white';
                     resetOptions();
+                    rollMsg.data = null;
                 }
             if(checkBlackStatus() == 'home')
                 if(homeMovesBlack(dices) == false){
                     rolledDice = false;
                     turn = 'white';
                     resetOptions();
+                    rollMsg.data = null;
                 }
         }
         $('#rolled').html(dices[0] + ' ' + dices[1]);
         $('.roll').css('visibility','hidden');
 
 
-        //SEND THE DICES TO THE SERVER
-        rollMsg.data = dices;
+        
         socket.send(JSON.stringify(rollMsg));
     }
    else

@@ -41,7 +41,14 @@ function afterWhiteCapturedMove(el) {
                     }
                     var capturedCounter = document.getElementsByClassName('capturedBlackCounter');
                     document.getElementById('blackCaptureCount').innerHTML = capturedBlack.length;
-                }
+                }//Check if the fifth piece is just a normal piece with different opacity
+                else if(el.className == 'white'){
+                    if(el.id == tile[whitePieces[el.id].place].objects[4]){
+                    el.className = 'white';
+                    el.setAttribute('onclick', 'selectWhitePiece(this)');
+                    el.style.opacity = '1';
+                    }
+                } 
                 else el.parentNode.appendChild(img);
 
             capturedWhite.pop();
@@ -165,7 +172,7 @@ function afterBlackCapturedMove(el){
                     }
                     var capturedCounter = document.getElementsByClassName('capturedWhiteCounter');
                     document.getElementById('whiteCaptureCount').innerHTML = capturedWhite.length;
-                }
+                }//Check if the fifth piece is just a normal piece with different opacity
                 else if(el.className == 'black'){
                     if(el.id == tile[blackPieces[el.id].place].objects[4] - 15){
                     el.className = 'black';

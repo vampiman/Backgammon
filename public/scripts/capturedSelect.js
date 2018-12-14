@@ -11,6 +11,13 @@ if(selectedWhiteCapture == -1){
                 img.setAttribute('onclick','afterWhiteCapturedMove(this)');
                 img.src = "stylesheets/images/whitePiece.png";
                 img.className = "future";
+                if(tile[whitePieces[selectedWhiteCapture].options[i]].pieces >= 5){
+                //TEMPORARILY CHANGE PIECE
+                var fifth = document.getElementsByClassName('tile' + whitePieces[selectedWhiteCapture].options[i] + '-5')[0].firstChild;
+                fifth.style.opacity = '0.5';
+                fifth.setAttribute('onclick', 'afterWhiteCapturedMove(this)');
+                }
+                else
                 document.getElementsByClassName("tile" + whitePieces[selectedWhiteCapture].options[i] + "-" + number)[0].appendChild(img);
                 if(whitePieces[selectedWhiteCapture].options[0] == whitePieces[selectedWhiteCapture].options[1])
                     i++;

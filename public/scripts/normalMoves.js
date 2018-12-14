@@ -90,9 +90,32 @@ function afterWhiteMove(el){
                 var status = checkWhiteStatus();
                 if(dices.length == 2){
                     if(dices[0] + dices[1] == (oldPlace - arr[0])*-1){
-                        rolledDice = false;
-                        turn = 'black';
-                        whiteMove.endTurn = true;
+                        if(double == false){
+                            rolledDice = false;
+                            turn = 'black';
+                            whiteMove.endTurn = true;
+                        } else {
+                        double = false;
+                        rolledDice = true;
+                        if(status == 'normal')
+                            if(normalMovesWhite(placeHolder) == false){
+                                alert('No possible moves');
+                                rolledDice =  false;
+                                turn = 'black';
+                                whiteMove.pieceID = null;
+                                whiteMove.endTurn = true;
+                            }
+                        if(status == 'home')
+                            if(homeMovesWhite(placeHolder) == false){
+                                alert('No possible moves');
+                                rolledDice =  false;
+                                turn = 'black';
+                                whiteMove.pieceID = null;
+                                whiteMove.endTurn = true;
+                            }
+                        dices = placeHolder;
+                        }
+
                     }
                     else if(dices[0] == (oldPlace - arr[0])*-1){
                         dices.splice(0,1);
@@ -136,9 +159,31 @@ function afterWhiteMove(el){
                     }
                 }
                 else{
-                    rolledDice = false;
-                    turn = 'black';
-                    whiteMove.endTurn = true;
+                    if(double == false){
+                        rolledDice = false;
+                        turn = 'black';
+                        whiteMove.endTurn = true;
+                    } else {
+                        double = false;
+                        rolledDice = true;
+                        if(status == 'normal')
+                            if(normalMovesWhite(placeHolder) == false){
+                                alert('No possible moves');
+                                rolledDice =  false;
+                                turn = 'black';
+                                whiteMove.pieceID = null;
+                                whiteMove.endTurn = true;
+                            }
+                        if(status == 'home')
+                            if(homeMovesWhite(placeHolder) == false){
+                                alert('No possible moves');
+                                rolledDice =  false;
+                                turn = 'black';
+                                whiteMove.pieceID = null;
+                                whiteMove.endTurn = true;
+                            }
+                        dices = placeHolder;
+                    }
                 }
                 
                 
@@ -247,9 +292,31 @@ function afterBlackMove(el){
                 var status = checkBlackStatus();
                 if(dices.length == 2){
                     if(dices[0] + dices[1] == (oldPlace - arr[0])*-1){
+                        if(double == false){
                         rolledDice = false;
                         turn = 'white';
                         blackMove.endTurn = true;
+                    } else {
+                        double = false;
+                        rolledDice = true;
+                        if(status == 'normal')
+                            if(normalMovesBlack(placeHolder) == false){
+                                alert('No possible moves');
+                                rolledDice =  false;
+                                turn = 'white';
+                                blackMove.pieceID = null;
+                                blackMove.endTurn = true;
+                            }
+                        if(status == 'home')
+                            if(homeMovesBlack(placeHolder) == false){
+                                alert('No possible moves');
+                                rolledDice =  false;
+                                turn = 'white';
+                                blackMove.pieceID = null;
+                                blackMove.endTurn = true;
+                            }
+                        dices = placeHolder;
+                    }
                     }
                     else if(dices[0] == (oldPlace - arr[0])*-1){
                         dices.splice(0,1);
@@ -293,9 +360,31 @@ function afterBlackMove(el){
                     }
                 }
                 else{
-                    rolledDice = false;
-                    turn = 'white';
-                    blackMove.endTurn = true;
+                    if(double == false){
+                        rolledDice = false;
+                        turn = 'white';
+                        blackMove.endTurn = true;
+                    } else {
+                        double = false;
+                        rolledDice = true;
+                        if(status == 'normal')
+                            if(normalMovesBlack(placeHolder) == false){
+                                alert('No possible moves');
+                                rolledDice =  false;
+                                turn = 'white';
+                                blackMove.pieceID = null;
+                                blackMove.endTurn = true;
+                            }
+                        if(status == 'home')
+                            if(homeMovesBlack(placeHolder) == false){
+                                alert('No possible moves');
+                                rolledDice =  false;
+                                turn = 'white';
+                                blackMove.pieceID = null;
+                                blackMove.endTurn = true;
+                            }
+                        dices = placeHolder;
+                    }
                 }
                 
 

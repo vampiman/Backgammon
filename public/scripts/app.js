@@ -597,19 +597,28 @@ var selectedWhite = -1;
 var selectedBlack = -1;
 var selectedBlackCapture = -1;
 var selectedWhiteCapture = -1;
+var placeHolder = [];
+var double = false;
+
 $(() => {
 
 // Rolled the dice
 $(".roll").click(function(){
+    //Create message to send to the server
     var rollMsg = Messages.O_ROLLED_DICE;
 
     
-
     if(rolledDice == false){
         dices[0] = roll();
         dices[1] = roll();
 
-        //SEND THE DICES TO THE SERVER
+        
+
+        if(dices[0] == dices[1])
+            double = true;
+        else
+            double = false;
+        //Send the dices to the server as data
         rollMsg.data = dices;
 
         rolledDice = true;
@@ -617,7 +626,8 @@ $(".roll").click(function(){
             dices[0] = dices[0]*-1;
             dices[1] = dices[1]*-1;
 
-            
+            placeHolder[0] = dices[0];
+            placeHolder[1] = dices[1];
 
             if(checkWhiteStatus() == 'normal')
                 if(normalMovesWhite(dices) == false){
@@ -625,6 +635,7 @@ $(".roll").click(function(){
                     turn = 'black';
                     resetOptions();
                     rollMsg.data = null;
+
                 }
             if(checkWhiteStatus() == 'captured')
                 if(capturedMovesWhite(dices) == false) {
@@ -643,6 +654,9 @@ $(".roll").click(function(){
             
         }
         else if(turn == 'black'){
+
+            placeHolder[0] = dices[0];
+            placeHolder[1] = dices[1];
             
             if(checkBlackStatus() == 'normal')
                 if(normalMovesBlack(dices) == false){

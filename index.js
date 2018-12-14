@@ -165,6 +165,33 @@ wss.on('connection',(ws) => {
         
     });
 
+    ws.on('close',function(){
+        var notFound = true;
+        var id = 0;
+        var endMsg = Messages.O_GAME_CANCELLED;
+            while(notFound){
+                if(games[id].socket1 == ws){
+                    games[id].points1++;
+                    console.log('Player1 just left');
+                    endMsg.data = 'Player1 just left';
+                    games[id].socket2.send(JSON.stringify(endMsg));
+                    games.splice(id,1);
+                    notFound = false;
+                    
+                }
+                else if(games[id].socket2 == ws){
+                    console.log(`Player2 from Game ${id} just scored a point`);
+                    if(msg.endTurn == true)
+                        console.log('Player2 ended his turn');
+                    games[id].socket1.send(message);
+                    notFound = false;
+                    if(games[id].points1 == 15)
+                        console.log('Player 2 just won');
+                }
+                id++;
+            }
+    });
+
    if(games[games.length - 1].players === 2)
     games.push(new Game()); 
 });

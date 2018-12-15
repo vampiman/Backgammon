@@ -100,8 +100,10 @@ socket.onmessage = function(event){
         if(fromServer.pieceID != null)
             removeWhitePiece(fromServer.pieceID);
 
-        if(whitePoints == 15)
-            document.getElementById('rolled').innerHTML = `White just won`;
+        if(whitePoints == 15){
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('greetings').innerHTML = `White just won`;
+        }
         
         if(fromServer.endTurn == true){
             document.getElementsByClassName('roll')[0].style.visibility = 'visible';
@@ -115,8 +117,10 @@ socket.onmessage = function(event){
         if(fromServer.pieceID != null)
             removeBlackPiece(fromServer.pieceID);
 
-        if(blackPoints == 15)
-            document.getElementById('rolled').innerHTML = `Black just won`;
+        if(blackPoints == 15){
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('greetings').innerHTML = `Black just won`;
+        }
         
         if(fromServer.endTurn == true){
             document.getElementsByClassName('roll')[0].style.visibility = 'visible';

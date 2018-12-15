@@ -1,7 +1,7 @@
 //Three possible statuses for tiles: white, black, free
 //Three possible statuses for players: home, captured, normal
 //42 is the winning option code
-
+//DON'T RESET TURN WITH PIECEID = NULL CUZ OPPONENT DOESN'T KNOW WHAT TO UPDATE
 
 
 //Point to win

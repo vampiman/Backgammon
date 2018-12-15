@@ -93,6 +93,11 @@ function capWhite(){
 
     //Send the message to the server
     socket.send(JSON.stringify(scoreWhite));
+
+    if(whitePoints == 15){
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('greetings').innerHTML = `You just won`;
+    }
     
     selectedWhite = -1;
 }
@@ -177,6 +182,11 @@ function capBlack(){
 
     //Send the message to the server
     socket.send(JSON.stringify(scoreBlack));
+
+    if(blackPoints == 15){
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('greetings').innerHTML = `You just won`;
+    }
 
     selectedBlack = -1;
 }

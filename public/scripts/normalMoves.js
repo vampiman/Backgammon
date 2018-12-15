@@ -113,7 +113,8 @@ function afterWhiteMove(el){
                                 whiteMove.pieceID = null;
                                 whiteMove.endTurn = true;
                             }
-                        dices = placeHolder;
+                        dices[0] = placeHolder[0];
+                        dices[1] = placeHolder[1];
                         }
 
                     }
@@ -182,7 +183,8 @@ function afterWhiteMove(el){
                                 whiteMove.pieceID = null;
                                 whiteMove.endTurn = true;
                             }
-                        dices = placeHolder;
+                        dices[0] = placeHolder[0];
+                        dices[1] = placeHolder[1];
                     }
                 }
                 
@@ -315,7 +317,8 @@ function afterBlackMove(el){
                                 blackMove.pieceID = null;
                                 blackMove.endTurn = true;
                             }
-                        dices = placeHolder;
+                        dices[0] = placeHolder[0];
+                        dices[1] = placeHolder[1];
                     }
                     }
                     else if(dices[0] == (oldPlace - arr[0])*-1){
@@ -383,7 +386,8 @@ function afterBlackMove(el){
                                 blackMove.pieceID = null;
                                 blackMove.endTurn = true;
                             }
-                        dices = placeHolder;
+                        dices[0] = placeHolder[0];
+                        dices[1] = placeHolder[1];
                     }
                 }
                 

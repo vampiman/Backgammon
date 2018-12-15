@@ -31,16 +31,20 @@ const wss = new websocket.Server({ server });
 
 wss.on('connection',(ws) => {
     if(games[games.length - 1].players === 0){
+        var waiting = Messages.O_WAITING_FOR_OPPONENT;
+        waiting.data = 'Waiting for opponent...';
         games[games.length - 1].player1(ws);
-        ws.send('Waiting for another player');
+        ws.send(JSON.stringify(waiting));
         console.log(`Player 1 from game ${games.length-1} is ready`);
 
     } else if(games[games.length - 1].players === 1){
         games[games.length - 1].player2(ws);
-        ws.send('Opponent found, let the match begin!');
         var beginMsg = Messages.O_BEGIN;
-        beginMsg.data = "Begin";
+        var foundOpponent = Messages.O_OPPONENT_FOUND;
+        foundOpponent.data = 'Opponent found...Click anywhere to begin!';
+        beginMsg.data = 'Opponent found...Click anywhere to begin!';
         
+        ws.send(JSON.stringify(foundOpponent));
         console.log(`Player 2 from game ${games.length-1} is ready`);
         games[games.length - 1].socket1.send(JSON.stringify(beginMsg));
     }
@@ -82,32 +86,19 @@ wss.on('connection',(ws) => {
                     games[id].socket2.send(message);
                     notFound = false;
                 }
-                else if(games[id].socket2 == ws){
-                    console.log(`Player2 from Game ${id} just moved piece ${msg.pieceID} to tile ${msg.target}!`);
-                    games[id].socket1.send(message);
-                    notFound = false;
-                }
                 id++;
             }
         }
         //HANDLE BLACK MOVE
         else if(msg.type == Messages.T_BLACK_MOVE || msg.type == Messages.T_BLACK_CAPTURED_MOVE){
             while(notFound){
-                if(games[id].socket1 == ws){
-                    if(msg.pieceID != null)
-                        console.log(`Player1 from Game ${id} just moved piece ${msg.pieceID} to tile ${msg.target}!`);
-                    else
-                        console.log('Player1 can\'t move anywhere');
-                    if(msg.endTurn == true)
-                        console.log('Player1 ended his turn');
-                    games[id].socket2.send(message);
-                    notFound = false;
-                }
-                else if(games[id].socket2 == ws){
+                if(games[id].socket2 == ws){
                     if(msg.pieceID != null)
                     console.log(`Player2 from Game ${id} just moved piece ${msg.pieceID} to tile ${msg.target}!`);
                     else
                         console.log('Player1 can\'t move anywhere');
+                    if(msg.endTurn == true)
+                        console.log('Player2 ended his turn');
                     games[id].socket1.send(message);
                     notFound = false;
                 }
@@ -130,27 +121,14 @@ wss.on('connection',(ws) => {
                     if(games[id].points1 == 15)
                         console.log('Player 1 just won');
                 }
-                else if(games[id].socket2 == ws){
-                    console.log(`Player2 from Game ${id} just scored a point`);
-                    games[id].socket1.send(message);
-                    notFound = false;
-                }
+                
                 id++;
             }
         }
         //HANDLE BLACK POINT
         else if(msg.type == Messages.T_BLACK_TO_WIN){
             while(notFound){
-                if(games[id].socket1 == ws){
-                    games[id].points1++;
-                    console.log(`Player1 from Game ${id} just scored a point`);
-                    if(msg.endTurn == true)
-                        console.log('Player1 ended his turn');
-                    games[id].socket2.send(message);
-                    notFound = false;
-                    
-                }
-                else if(games[id].socket2 == ws){
+                if(games[id].socket2 == ws){
                     console.log(`Player2 from Game ${id} just scored a point`);
                     if(msg.endTurn == true)
                         console.log('Player2 ended his turn');

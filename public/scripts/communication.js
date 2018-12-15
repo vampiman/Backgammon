@@ -8,8 +8,16 @@ socket.onmessage = function(event){
 
     //THE FIRST PLAYER GETS THIS
     if(fromServer.type == Messages.T_BEGIN){
-        document.getElementById('message').innerHTML = fromServer.data;
+        document.getElementById('overlay').onclick = function(){document.getElementById('overlay').style.display = 'none';};
+        document.getElementById('greetings').innerHTML = fromServer.data;
         document.getElementsByClassName('roll')[0].style.visibility = 'visible';
+    }
+    else if(fromServer.type == Messages.T_WAITING_FOR_OPPONENT) {
+        document.getElementById('greetings').innerHTML = fromServer.data;
+    }
+    else if(fromServer.type == Messages.T_OPPONENT_FOUND) {
+        document.getElementById('overlay').onclick = function(){document.getElementById('overlay').style.display = 'none';};
+        document.getElementById('greetings').innerHTML = fromServer.data;
     }
     //DICE OF THE OPPONENT
     else if(fromServer.type == Messages.T_ROLLED_DICE){

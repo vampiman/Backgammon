@@ -3,4 +3,65 @@
  body {
      background-image: url("./images/ancientBack.jpg");
      background-size: 1600px;
+     align-items: center;
+     text-align: center;
+ }
+
+h1 {
+    text-align: center;
+    font-family: "Lucida Calligraphy";
+    font-size: 100px;
+}
+
+.moving {
+    position: absolute;
+    width: 80px;
+}
+
+#black {
+    top: 700px;
+    right: 120px;
+    animation-timing-function: ease-in;
+    animation: 10s move-inverse infinite;
+}
+
+#white {
+    top: 30px;
+    left: 120px;
+    animation-timing-function: ease-in;
+    animation: 10s move infinite;
+}
+
+@keyframes move {
+  0%   {left:120px; top:30px; transform: rotate(0deg);}
+  50%  {left:120px; top:700px; transform: rotate(180deg);}
+  100% {left:120px; top:30px; transform: rotate(360deg);}
+}
+
+@keyframes move-inverse {
+    0%   {right:120px; top:700px; transform: rotate(0deg);}
+    50%  {right:120px; top:30px; transform: rotate(180deg);}
+    100% {right:120px; top:700px; transform: rotate(360deg);}
+}
+
+.board {
+    width: 500px;
+}
+
+.center-div {
+    margin: 0 auto;
+    width: 60%;
+}
+.buttons{
+    float: right;
+    align-content: center;
+}
+
+.btn {
+     width: 300px; 
+     transition: transform 1s;
+ }
+
+.btn:hover {
+     transform: scale(1.2);
  }

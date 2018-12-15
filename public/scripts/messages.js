@@ -7,6 +7,18 @@
         data: null
     };
 
+    exports.T_WAITING_FOR_OPPONENT = "WAITING-FOR-OPPONENT";
+    exports.O_WAITING_FOR_OPPONENT = {
+        type: exports.T_WAITING_FOR_OPPONENT,
+        data: null
+    }
+
+    exports.T_OPPONENT_FOUND = "OPPONENT-FOUND";
+    exports.O_OPPONENT_FOUND = {
+        type: exports.T_OPPONENT_FOUND,
+        data: null
+    }
+
     exports.O_GAME_CANCELLED = {                          
         type: "GAME-CANCELLED",
         //TO DECLARE THE WINNER, THE ONE WHO LEFT JUST LOST

@@ -307,7 +307,7 @@ function afterBlackMove(el){
                                 blackMove.pieceID = null;
                                 blackMove.endTurn = true;
                             }
-                        if(status == 'home')
+                        else if(status == 'home')
                             if(homeMovesBlack(placeHolder) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;

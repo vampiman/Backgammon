@@ -9,6 +9,8 @@
   "author": "Vampiman",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.6.1",
     "ws": "^6.1.2"
   }
 }

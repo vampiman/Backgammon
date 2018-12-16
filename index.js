@@ -2,6 +2,9 @@ var express = require('express');
 var http = require('http');
 var router = require('./routes/routes');
 var path = require('path');
+var ejs = require('ejs');
+var cookies = require('cookie-parser');
+var credentials = require('./credentials')
 var websocket = require('ws');
 var Game = require('./game.js');
 var Messages = require('./public/scripts/messages');
@@ -16,8 +19,11 @@ var IDGenerator = 0;
 var connections = [];
 var games = [game1];
 
+app.set('view engine', 'ejs');
+
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(cookies(credentials.cookieSecret));
 
 
 app.get('/menu', router);
@@ -173,6 +179,5 @@ wss.on('connection',(ws) => {
    if(games[games.length - 1].players === 2)
     games.push(new Game()); 
 });
-
 
 

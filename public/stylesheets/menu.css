@@ -65,3 +65,7 @@ h1 {
 .btn:hover {
      transform: scale(1.2);
  }
+
+ .statistic {
+     visibility: hidden;
+ }

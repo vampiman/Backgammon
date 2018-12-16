@@ -65,6 +65,37 @@ body {
      color: white;
  }
 
+  #p1 {
+    position: relative;
+    top: 30px;
+    grid-column: 1/2;
+    grid-row:1/2
+    
+ }
+
+ #p2 {
+     position: relative;
+     grid-column: 1/2;
+     grid-row: 1/2;
+     bottom: 30px;
+ } 
+
+ #fullscreen:not(:-webkit-full-screen) {
+     grid-column: 1/2;
+     grid-row: 1/2;
+     background-color: brown;
+     color: white;
+ }
+
+#fullscreen:-webkit-full-screen {
+     grid-column: 1/2;
+     grid-row: 1/2;
+     background-color: black ;
+     color: white;
+}
+
+
+
  .roll {
      width: 200px;
      transition: transform 1s;
@@ -159,4 +190,13 @@ body {
      color: white; 
  }
 
+ :-webkit-full-screen::after {
+  content: "You are now in fullscreen mode, press ESC to go back";
+  font-size: 40px;
+  padding-left: 200px;
+  padding-right:200px;
+  margin-left: 200px;
+  margin-right: 200px;
+  border-style: solid;
+}
  

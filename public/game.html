@@ -5,7 +5,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="stylesheets/game.css">
     </head>
-    <body>
+    <body id="all">
         <div id="overlay">
             <h1 id="greetings"></h1>
             <div id="loading">
@@ -14,10 +14,18 @@
             </div>
         </div>
         
+        
+
         <div class = "container" id = "gaga">
             
         </div>
+
+        
+
         <div class="right"><img src="stylesheets/images/rollDice.png" class = "roll" style = "visibility: hidden"></div>
+        <h2 id="p1">White: 0 points</h2>
+        <button id="fullscreen" onclick="openFullscreen()">Toggle Fullscreen</button>
+        <h2 id="p2">Black: 0 points</h2>
         <p id="message"></p>
         <script src="scripts/updateUI.js"></script>
         <script src="scripts/communication.js"></script>
@@ -29,6 +37,22 @@
         <script src="scripts/initializeTiles.js"></script>
         <script src="scripts/app.js"></script>
         <script src="scripts/actions.js"></script>
+        
+            <script>
+                var elem = document.documentElement;
+                function openFullscreen() {
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.mozRequestFullScreen) { /* Firefox */
+                    elem.mozRequestFullScreen();
+                } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+                    elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                    elem.msRequestFullscreen();
+                }
+                }
+            </script>
+
         
     </body>
 </html>

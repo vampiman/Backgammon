@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Backgammon</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="stylesheets/menu.css">
+    </head>
+    <body>
+        <img class="moving" id="white" src="stylesheets/images/whitePiece.png">
+        <img class="moving" id="black" src="stylesheets/images/blackPiece.png">
+        <h1>Backgammon</h1>
+        <div class="center-div">
+            <img class="board" src = "stylesheets/images/board.png">
+            <div class="buttons">
+                <a href = "http://localhost:3000/game"><img class = "btn" src = "stylesheets/images/enterGame.png"></a><br>
+                <img onclick="statisticsShow()" class = "btn" id="statistics" src="stylesheets/images/statistics.png"><br>
+                <img class = "btn" src="stylesheets/images/instructions.png"><br>
+                <h3 class ="statistic">Ongoing matches: <%= ongoing %></h3>
+                <h3 class ="statistic">Matches played: <%= played %></h3>
+                <h3 class ="statistic" id="visits">Your visits: 0</h3>
+        
+            </div>
+        </div>
+        <script>
+            var lala = document.cookie;
+            lala = lala.replace('=', ': ');
+            document.getElementById('visits').innerHTML = lala;
+
+            function statisticsShow(){
+                var stats = document.getElementsByClassName('statistic');
+                for(var i = 0; i < stats.length; i++){
+                    stats[i].style.visibility = 'visible';
+                }
+                document.getElementById('statistics').onclick = statisticsHide;
+            }
+
+            function statisticsHide(){
+                var stats = document.getElementsByClassName('statistic');
+                for(var i = 0; i < stats.length; i++){
+                    stats[i].style.visibility = 'hidden';
+                }
+                document.getElementById('statistics').onclick = statisticsShow;
+            }
+        </script>
+    </body>
+</html>

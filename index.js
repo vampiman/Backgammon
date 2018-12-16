@@ -17,7 +17,7 @@ var game1 = new Game();
 
 var IDGenerator = 0;
 var connections = [];
-var games = [game1];
+var games = [];
 
 app.set('view engine', 'ejs');
 
@@ -26,8 +26,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookies(credentials.cookieSecret));
 
 
+
 app.get('/menu', router);
 app.get('/game', router);
+
+games.push(game1);
 
 var server = http.createServer(app);
 
@@ -181,3 +184,4 @@ wss.on('connection',(ws) => {
 });
 
 
+module.exports.number = games.length;

@@ -103,14 +103,14 @@ socket.onmessage = function(event){
         if(whitePoints == 15){
             document.getElementById('overlay').style.display = 'block';
             document.getElementById('greetings').innerHTML = `White just won`;
+            socket.close();
         }
         
         if(fromServer.endTurn == true){
             document.getElementsByClassName('roll')[0].style.visibility = 'visible';
             turn = 'black';
         }
-    }
-    //BLACK CAPPED PIECE
+    }//BLACK CAPPED PIECE
     else if(fromServer.type == Messages.T_BLACK_TO_WIN){
         document.getElementById('rolled').innerHTML = `Opponent just capped piece ${fromServer.pieceID}!`;
 
@@ -120,11 +120,22 @@ socket.onmessage = function(event){
         if(blackPoints == 15){
             document.getElementById('overlay').style.display = 'block';
             document.getElementById('greetings').innerHTML = `Black just won`;
+            socket.close();
         }
         
         if(fromServer.endTurn == true){
             document.getElementsByClassName('roll')[0].style.visibility = 'visible';
             turn = 'white';
         }
+    }//GAME CANCELLED
+    else if(fromServer.type == Messages.T_GAME_CANCELLED){
+        document.getElementById('rolled').innerHTML = `Opponent just capped piece ${fromServer.pieceID}!`;
+
+        socket.close();
+
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('greetings').innerHTML = `Your opponent left the game, you just won!`;
+        
+
     }
 }

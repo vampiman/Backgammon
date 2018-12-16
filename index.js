@@ -16,6 +16,9 @@ var app = express();
 var game1 = new Game();
 
 var IDGenerator = 0;
+
+//Number of games that have been started in total
+var totalGames = 0;
 var connections = [];
 var games = [];
 
@@ -27,7 +30,19 @@ app.use(cookies(credentials.cookieSecret));
 
 
 
-app.get('/menu', router);
+app.get('/menu', (req, res) => {
+    var visited = 1;
+    if(req.cookies.Visits == undefined)
+        visited = 1;
+    else
+        visited = parseInt(req.cookies.Visits) + 1;
+
+    console.log(visited);
+    res.cookie("Visits", visited);
+    res.render('menu', {ongoing: games.length-1, played: totalGames});
+    console.log(games);
+});
+
 app.get('/game', router);
 
 games.push(game1);
@@ -157,26 +172,34 @@ wss.on('connection',(ws) => {
         var id = 0;
         var endMsg = Messages.O_GAME_CANCELLED;
             while(notFound){
+                if(games[id].socket1 != undefined)
                 if(games[id].socket1 == ws){
-                    games[id].points1++;
-                    console.log('Player1 just left');
+                    console.log(`Player1 from game ${id} just left`);
                     endMsg.data = 'Player1 just left';
-                    games[id].socket2.send(JSON.stringify(endMsg));
-                    games.splice(id,1);
+                    if(games[id].socket2 != null)
+                    if(games[id].socket2.readyState != 3)
+                        games[id].socket2.send(JSON.stringify(endMsg));
                     notFound = false;
+                    games[id].players = 0;
                     
                 }
-                else if(games[id].socket2 == ws){
-                    console.log(`Player2 from Game ${id} just scored a point`);
-                    if(msg.endTurn == true)
-                        console.log('Player2 ended his turn');
-                    games[id].socket1.send(message);
+                else if(games[id].socket2 != undefined)
+                     if(games[id].socket2 == ws){
+                    console.log(`Player2 from game ${id} just left`);
+                    if(games[id].socket2 != null)
+                    if(games[id].socket1.readyState != 3)
+                        games[id].socket1.send(JSON.stringify(endMsg));
                     notFound = false;
-                    if(games[id].points1 == 15)
-                        console.log('Player 2 just won');
+                    games[id].players = 0;
                 }
                 id++;
             }
+        
+        totalGames = totalGames + 0.5;
+        // console.log(id);
+        // if(games[id-1].players == 0 && (id-1 != 0 || id-1 != games.length-1))
+        //     games.splice(id-1, 1)
+        // console.log(games);
     });
 
    if(games[games.length - 1].players === 2)
@@ -184,4 +207,5 @@ wss.on('connection',(ws) => {
 });
 
 
-module.exports.number = games.length;
+module.exports.ongoing = games.length;
+module.exports.totalGames = totalGames;

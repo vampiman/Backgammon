@@ -194,6 +194,9 @@ function removeWhitePiece(pieceID){
 
     whiteToWin(pieceID);
 
+    //Update points UI
+    document.getElementById('p1').innerHTML = `White: ${whitePoints} points`;
+
     if(notFound == false)
         toRemove.parentNode.removeChild(toRemove);
 
@@ -222,6 +225,9 @@ function removeBlackPiece(pieceID){
     document.getElementById("count" + blackPieces[pieceID].place).innerHTML = tile[blackPieces[pieceID].place].pieces - 1;
 
     blackToWin(pieceID + 15);
+
+    //Update points UI
+    document.getElementById('p2').innerHTML = `Black: ${blackPoints} points`;
 
     if(notFound == false)
         toRemove.parentNode.removeChild(toRemove);

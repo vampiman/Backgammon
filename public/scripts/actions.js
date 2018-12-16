@@ -7,12 +7,12 @@
 //CHECK IF IN HOME AFTER MOVE (IMPORTANT) REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE (DONE)
 //WHEN GETTING A POINT, MAKE SURE TO TAKE THE SMALLEST DICE POSSIBLE FOR THE POINT
 //M
-//DOUBLE MOVE (YEAH YEAH I AM DOING IT NOW GOOSH *sigh, here we go) (DONE, but not tested enough)
+//DOUBLE MOVE (DONE)
 
 var whitePlaceHolders = [];
 var blackPlaceHolder;
 
-///////////////NOT TESTED YET/////////////////
+
 function capWhite(){
     //Create the websocket message
     var scoreWhite = Messages.O_WHITE_TO_WIN;
@@ -74,18 +74,43 @@ function capWhite(){
 
                     }
                     else {
-                        resetOptions();
-                        rolledDice =  false;
-                        turn = 'black';
-                        scoreWhite.endTurn = true;
-                        
+                        if(double == false){
+                            resetOptions();
+                            rolledDice =  false;
+                            turn = 'black';
+                            scoreWhite.endTurn = true;
+                        } else {
+                        double = false;
+                        rolledDice = true;
+                        if(homeMovesWhite(placeHolder) == false){
+                                alert('No possible moves');
+                                rolledDice =  false;
+                                turn = 'black';
+                                scoreWhite.endTurn = true;
+                            }
+                        dices[0] = placeHolder[0];
+                        dices[1] = placeHolder[1];
+                        }
                     }
                 }
                 else{
-                    resetOptions();
-                    rolledDice = false;
-                    turn = 'black';
-                    scoreWhite.endTurn = true;
+                    if(double == false){
+                        resetOptions();
+                        rolledDice = false;
+                        turn = 'black';
+                        scoreWhite.endTurn = true;
+                    } else {
+                        double = false;
+                        rolledDice = true;
+                        if(homeMovesWhite(placeHolder) == false){
+                                alert('No possible moves');
+                                rolledDice =  false;
+                                turn = 'black';
+                                scoreWhite.endTurn = true;
+                            }
+                        dices[0] = placeHolder[0];
+                        dices[1] = placeHolder[1];
+                    }
                 }
 
 
@@ -98,10 +123,13 @@ function capWhite(){
         document.getElementById('overlay').style.display = 'block';
         document.getElementById('greetings').innerHTML = `You just won`;
     }
+
+    //Update points UI
+    document.getElementById('p1').innerHTML = `White: ${whitePoints} points`;
     
     selectedWhite = -1;
 }
-///////////////NOT TESTED YET/////////////////////
+
 function capBlack(){
     //Create the websocket message
     var scoreBlack = Messages.O_BLACK_TO_WIN;
@@ -164,17 +192,43 @@ function capBlack(){
 
                     }
                     else {
-                        resetOptions();
-                        rolledDice =  false;
-                        turn = 'white';
-                        scoreBlack.endTurn = true;
+                        if(double == false){
+                            resetOptions();
+                            rolledDice =  false;
+                            turn = 'white';
+                            scoreBlack.endTurn = true;
+                        } else {
+                            double = false;
+                            rolledDice = true;
+                            if(homeMovesBlack(placeHolder) == false){
+                                alert('No possible moves');
+                                rolledDice =  false;
+                                turn = 'white';
+                                scoreBlack.endTurn = true;
+                            }
+                            dices[0] = placeHolder[0];
+                            dices[1] = placeHolder[1];
+                        }
                     }
                 }
                 else{
-                    resetOptions();
-                    rolledDice = false;
-                    turn = 'white';
-                    scoreBlack.endTurn = true;
+                    if(double == false){
+                        resetOptions();
+                        rolledDice = false;
+                        turn = 'white';
+                        scoreBlack.endTurn = true;
+                    } else {
+                            double = false;
+                            rolledDice = true;
+                            if(homeMovesBlack(placeHolder) == false){
+                                alert('No possible moves');
+                                rolledDice =  false;
+                                turn = 'white';
+                                scoreBlack.endTurn = true;
+                            }
+                            dices[0] = placeHolder[0];
+                            dices[1] = placeHolder[1];
+                        }
                 }
 
 
@@ -188,6 +242,9 @@ function capBlack(){
         document.getElementById('greetings').innerHTML = `You just won`;
     }
 
+    //Update points UI
+    document.getElementById('p2').innerHTML = `Black: ${blackPoints} points`;
+    
     selectedBlack = -1;
 }
 

@@ -97,7 +97,7 @@ function afterWhiteMove(el){
                         } else {
                         double = false;
                         rolledDice = true;
-                        if(status == 'normal')
+                        if(status == 'normal'){
                             if(normalMovesWhite(placeHolder) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;
@@ -105,7 +105,7 @@ function afterWhiteMove(el){
                                 whiteMove.pieceID = null;
                                 whiteMove.endTurn = true;
                             }
-                        if(status == 'home')
+                        }else if(status == 'home')
                             if(homeMovesWhite(placeHolder) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;
@@ -120,7 +120,7 @@ function afterWhiteMove(el){
                     }
                     else if(dices[0] == (oldPlace - arr[0])*-1){
                         dices.splice(0,1);
-                        if(status == 'normal')
+                        if(status == 'normal'){
                             if(normalMovesWhite(dices) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;
@@ -128,7 +128,7 @@ function afterWhiteMove(el){
                                 whiteMove.pieceID = null;
                                 whiteMove.endTurn = true;
                             }
-                        if(status == 'home')
+                        }else if(status == 'home')
                             if(homeMovesWhite(dices) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;
@@ -140,7 +140,7 @@ function afterWhiteMove(el){
                     }
                     else {
                         dices.splice(1,1);
-                        if(status == 'normal')
+                        if(status == 'normal'){
                             if(normalMovesWhite(dices) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;
@@ -148,7 +148,7 @@ function afterWhiteMove(el){
                                 whiteMove.pieceID = null;
                                 whiteMove.endTurn = true;
                             }
-                        if(status == 'home')
+                        }else if(status == 'home')
                             if(homeMovesWhite(dices) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;
@@ -167,7 +167,7 @@ function afterWhiteMove(el){
                     } else {
                         double = false;
                         rolledDice = true;
-                        if(status == 'normal')
+                        if(status == 'normal'){
                             if(normalMovesWhite(placeHolder) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;
@@ -175,7 +175,7 @@ function afterWhiteMove(el){
                                 whiteMove.pieceID = null;
                                 whiteMove.endTurn = true;
                             }
-                        if(status == 'home')
+                        } else if(status == 'home')
                             if(homeMovesWhite(placeHolder) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;
@@ -301,7 +301,7 @@ function afterBlackMove(el){
                     } else {
                         double = false;
                         rolledDice = true;
-                        if(status == 'normal')
+                        if(status == 'normal'){
                             if(normalMovesBlack(placeHolder) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;
@@ -309,7 +309,7 @@ function afterBlackMove(el){
                                 blackMove.pieceID = null;
                                 blackMove.endTurn = true;
                             }
-                        else if(status == 'home')
+                        } else if(status == 'home')
                             if(homeMovesBlack(placeHolder) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;
@@ -323,7 +323,7 @@ function afterBlackMove(el){
                     }
                     else if(dices[0] == (oldPlace - arr[0])*-1){
                         dices.splice(0,1);
-                        if(status == 'normal')
+                        if(status == 'normal'){
                             if(normalMovesBlack(dices) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;
@@ -331,7 +331,7 @@ function afterBlackMove(el){
                                 blackMove.pieceID = null;
                                 blackMove.endTurn = true;
                             }
-                        if(status == 'home')
+                        }else if(status == 'home')
                             if(homeMovesBlack(dices) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;
@@ -343,7 +343,7 @@ function afterBlackMove(el){
                     }
                     else {
                         dices.splice(1,1);
-                        if(status == 'normal')
+                        if(status == 'normal'){
                             if(normalMovesBlack(dices) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;
@@ -351,7 +351,7 @@ function afterBlackMove(el){
                                 blackMove.pieceID = null;
                                 blackMove.endTurn = true;
                             }
-                        if(status == 'home')
+                        }else if(status == 'home')
                             if(homeMovesBlack(dices) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;
@@ -370,7 +370,7 @@ function afterBlackMove(el){
                     } else {
                         double = false;
                         rolledDice = true;
-                        if(status == 'normal')
+                        if(status == 'normal'){
                             if(normalMovesBlack(placeHolder) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;
@@ -378,7 +378,7 @@ function afterBlackMove(el){
                                 blackMove.pieceID = null;
                                 blackMove.endTurn = true;
                             }
-                        if(status == 'home')
+                        } else if(status == 'home')
                             if(homeMovesBlack(placeHolder) == false){
                                 alert('No possible moves');
                                 rolledDice =  false;

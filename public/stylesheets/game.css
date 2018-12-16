@@ -2,9 +2,13 @@
     box-sizing: border-box;
 }
 
+#size {
+    display: none;
+}
+
 body {
      background-image: url("images/ancientBack.jpg");
-     background-size: 1600px;
+     background-size: 1700px;
      display: grid;
      grid-template-columns: 15% 70% 15%;
      grid-template-rows: auto;
@@ -122,6 +126,7 @@ body {
  }
 
  .right{
+    grid-row: 1/2;
     grid-column: 3/4;
     align-items: center;
  }
@@ -190,7 +195,34 @@ body {
      color: white; 
  }
 
+ #whitePoint {
+    display: none;
+    position: relative;
+    top: 80px;
+    grid-column: 1/2;
+    grid-row:1/2
+ }
+
+ #blackPoint {
+    display: none;
+    position: relative;
+    bottom: 80px;
+    grid-column: 1/2;
+    grid-row:1/2
+ }
+
+ @media screen and (max-width: 1600px) {
+  h1#size {
+    display: block;
+    background-color: brown;
+  }
+ .container {
+     display: none;
+ }
+}
+
  :-webkit-full-screen::after {
+  position: absolute;
   content: "You are now in fullscreen mode, press ESC to go back";
   font-size: 40px;
   padding-left: 200px;

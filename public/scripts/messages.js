@@ -19,8 +19,9 @@
         data: null
     }
 
+    exports.T_GAME_CANCELLED = "GAME-CANCELLED";
     exports.O_GAME_CANCELLED = {                          
-        type: "GAME-CANCELLED",
+        type: exports.T_GAME_CANCELLED,
         //TO DECLARE THE WINNER, THE ONE WHO LEFT JUST LOST
         data: null
     };

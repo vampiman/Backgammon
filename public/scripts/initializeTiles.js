@@ -3,11 +3,6 @@ $(() => {
     var counterPosDown = 14;
     var counterPosUp = 2;
     var pieces = [2,0,0,0,0,5,0,3,0,0,0,5,5,0,0,0,3,0,5,0,0,0,0,2];
-    /*
-    $('.container').append('<div class = "counter' + 1 +'"><p>0</p></div>');
-    $('.counter' + i).css('grid-column', '2/3' + counterPos+1);
-    $('.counter' + i).css('grid-row','12/13');
-    */
     
     //$('body').append('<div><button class = "roll">Roll the dice</dice></div>');
     $('.right').append('<p id="rolled"></p>');

@@ -221,6 +221,24 @@ body {
  }
 }
 
+ #dice1 {
+    width: 60px;
+    position: relative;
+    grid-column: 3/4;
+    grid-row: 1/2;
+    bottom: 100px;
+    right: 30px;
+ }
+
+ #dice2 {
+    width: 60px;
+    position: relative;
+    grid-column: 3/4;
+    grid-row: 1/2;
+    bottom: 100px;
+    left: 30px;
+ }
+
  :-webkit-full-screen::after {
   position: absolute;
   content: "You are now in fullscreen mode, press ESC to go back";

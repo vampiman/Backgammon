@@ -681,6 +681,8 @@ $(".roll").click(function(){
                 }
         }
         $('#rolled').html(dices[0] + ' ' + dices[1]);
+        document.getElementById('dice1').src = `stylesheets/images/${Math.abs(dices[0])}.png`;
+        document.getElementById('dice2').src = `stylesheets/images/${Math.abs(dices[1])}.png`;
         $('.roll').css('visibility','hidden');
 
 

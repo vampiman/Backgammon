@@ -77,8 +77,8 @@ wss.on('connection',(ws) => {
         games[games.length - 1].player2(ws);
         var beginMsg = Messages.O_BEGIN;
         var foundOpponent = Messages.O_OPPONENT_FOUND;
-        foundOpponent.data = 'Opponent found...Click anywhere to begin!';
-        beginMsg.data = 'Opponent found...Click anywhere to begin!';
+        foundOpponent.data = 'Opponent found, you are black...Click anywhere to begin!';
+        beginMsg.data = 'Opponent found, you are white...Click anywhere to begin!';
         
         ws.send(JSON.stringify(foundOpponent));
         console.log(`Player 2 from game ${games.length-1} is ready`);

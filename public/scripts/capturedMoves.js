@@ -1,6 +1,9 @@
 
 ////////////////////TO TEST/////////////////////////
 function afterWhiteCapturedMove(el) {
+        //Make a sound
+        var sound = new Audio('stylesheets/images/select.wav');
+        sound.play();
         //Create message to send
                 var capturedWhiteMove = Messages.O_WHITE_CAPTURED_MOVE;
                 capturedWhiteMove.capture = null;
@@ -173,6 +176,9 @@ function afterWhiteCapturedMove(el) {
 
 
 function afterBlackCapturedMove(el){
+        //Make a sound
+        var sound = new Audio('stylesheets/images/select.wav');
+        sound.play();
     //Create message to send
         var capturedBlackMove = Messages.O_BLACK_CAPTURED_MOVE;
         capturedBlackMove.capture = null;

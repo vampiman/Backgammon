@@ -1,5 +1,8 @@
 function afterWhiteMove(el){
             if(turn == 'white'){
+                //Make a sound
+                var sound = new Audio('stylesheets/images/select.wav');
+                sound.play();
                 //Create element to send
                 var whiteMove = Messages.O_WHITE_MOVE;
                 whiteMove.capture = null;
@@ -204,6 +207,9 @@ function afterWhiteMove(el){
 /////////////NOT TESTED YET///////////////////
 function afterBlackMove(el){
             if(turn == 'black'){
+                //Make a sound
+                var sound = new Audio('stylesheets/images/select.wav');
+                sound.play();
                 //Create element to send
                 var blackMove = Messages.O_BLACK_MOVE;
 

@@ -26,7 +26,10 @@ if(turn == 'white'){
     }
     else if(tile[place].occupied == turn && selectedWhite == -1){
         selectedWhite = tile[place].objects[tile[place].objects.length - 1];
-        alert("Tile selected");
+        //Make a sound
+        var sound = new Audio('stylesheets/images/select.wav');
+        sound.play();
+        //alert("Tile selected");
         for(var i = 0; i < whitePieces[selectedWhite].options.length;i++){
             if(whitePieces[selectedWhite].options[i] == 42){
                 document.getElementById('whitePoint').style.display = 'block';
@@ -86,7 +89,10 @@ if(turn == 'black'){
     }
     else if(tile[place].occupied == turn && selectedBlack == -1){
         selectedBlack = tile[place].objects[tile[place].objects.length - 1];
-        alert("Tile selected");
+        //Make a sound
+        var sound = new Audio('stylesheets/images/select.wav');
+        sound.play();
+        //alert("Tile selected");
         for(var i = 0; i < blackPieces[selectedBlack-15].options.length;i++){
             if(blackPieces[selectedBlack - 15].options[i] == 42){
                 document.getElementById('blackPoint').style.display = 'block';

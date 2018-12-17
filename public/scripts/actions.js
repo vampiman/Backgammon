@@ -14,6 +14,9 @@ var blackPlaceHolder;
 
 
 function capWhite(){
+    //Make a sound
+    var sound = new Audio('stylesheets/images/select.wav');
+    sound.play();
     //Create the websocket message
     var scoreWhite = Messages.O_WHITE_TO_WIN;
     scoreWhite.pieceID = selectedWhite;
@@ -131,6 +134,9 @@ function capWhite(){
 }
 
 function capBlack(){
+    //Make a sound
+    var sound = new Audio('stylesheets/images/select.wav');
+    sound.play();
     //Create the websocket message
     var scoreBlack = Messages.O_BLACK_TO_WIN;
     scoreBlack.pieceID = selectedBlack - 15;

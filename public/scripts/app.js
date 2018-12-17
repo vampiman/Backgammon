@@ -604,6 +604,9 @@ $(() => {
 
 // Rolled the dice
 $(".roll").click(function(){
+    var sound = new Audio('stylesheets/images/roll.wav');
+    sound.play();
+
     //Create message to send to the server
     var rollMsg = Messages.O_ROLLED_DICE;
 

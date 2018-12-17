@@ -21,8 +21,13 @@ socket.onmessage = function(event){
     }
     //DICE OF THE OPPONENT
     else if(fromServer.type == Messages.T_ROLLED_DICE){
-        if(fromServer.data != null)
+        if(fromServer.data != null){
             document.getElementById('rolled').innerHTML = `Opponent rolled ${fromServer.data}`;
+            document.getElementById('dice1').src = `stylesheets/images/${Math.abs(fromServer.data[0])}.png`;
+            document.getElementById('dice2').src = `stylesheets/images/${Math.abs(fromServer.data[1])}.png`;
+            var sound = new Audio('stylesheets/images/roll.wav');
+            sound.play();
+        }
         else{
             if(turn == 'white')
                 turn = 'black';

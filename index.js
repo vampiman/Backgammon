@@ -37,9 +37,21 @@ app.get('/menu', (req, res) => {
     else
         visited = parseInt(req.cookies.Visits) + 1;
 
+    var ongoing = 0;
+    var played = 0;
+    //Check statistics
+    for(var i = 0; i < games.length; i++) {
+        if(games[i].done == false)
+            ongoing++;
+        else
+            played++;
+    }
+        
+
+
     console.log(visited);
     res.cookie("Visits", visited);
-    res.render('menu', {ongoing: games.length-1, played: totalGames});
+    res.render('menu', {ongoing: ongoing-1, played: played});
     console.log(games);
 });
 
@@ -196,6 +208,7 @@ wss.on('connection',(ws) => {
             }
         
         totalGames = totalGames + 0.5;
+        games[id-1].done = true;
         // console.log(id);
         // if(games[id-1].players == 0 && (id-1 != 0 || id-1 != games.length-1))
         //     games.splice(id-1, 1)

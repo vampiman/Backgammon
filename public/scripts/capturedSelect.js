@@ -4,6 +4,9 @@ if(selectedWhiteCapture == -1){
     if(rolledDice == true){
         if(turn == 'white'){
             selectedWhiteCapture = capturedWhite[capturedWhite.length-1];
+            //Make a sound
+            var sound = new Audio('stylesheets/images/select.wav');
+            sound.play();
             alert("Captured piece selected!");
             for(var i = 0; i < whitePieces[selectedWhiteCapture].options.length; i++){
                 var number = tile[whitePieces[selectedWhiteCapture].options[i]].pieces + 1;
@@ -36,6 +39,9 @@ if(selectedBlackCapture == -1){
     if(rolledDice == true){
         if(turn == 'black'){
             selectedBlackCapture = capturedBlack[capturedBlack.length-1];
+            //Make a sound
+            var sound = new Audio('stylesheets/images/select.wav');
+            sound.play();
             alert("Captured piece selected!");
             for(var i = 0; i < blackPieces[selectedBlackCapture - 15].options.length; i++){
                 var number = tile[blackPieces[selectedBlackCapture-15].options[i]].pieces + 1;

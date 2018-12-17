@@ -1,5 +1,8 @@
 //UPDATE UI AFTER WHITE MOVE
 function updateWhiteMove(pieceID, target){
+    //Make a sound
+    var sound = new Audio('stylesheets/images/select.wav');
+    sound.play();
     document.getElementById("count" + whitePieces[pieceID].place).innerHTML = tile[whitePieces[pieceID].place].pieces - 1;
     whitePieces[pieceID].move((whitePieces[pieceID].place - target)*-1);
 
@@ -36,6 +39,9 @@ function updateWhiteMove(pieceID, target){
 }
 //UPDATE UI AFTER BLACK MOVE
 function updateBlackMove(pieceID, target){
+    //Make a sound
+    var sound = new Audio('stylesheets/images/select.wav');
+    sound.play();
     document.getElementById("count" + blackPieces[pieceID].place).innerHTML = tile[blackPieces[pieceID].place].pieces - 1;
     blackPieces[pieceID].move((blackPieces[pieceID].place - target)*-1);
 
@@ -72,6 +78,9 @@ function updateBlackMove(pieceID, target){
 
 //Update white move from captured position
 function updateWhiteCapturedMove(pieceID, target){
+    //Make a sound
+    var sound = new Audio('stylesheets/images/select.wav');
+    sound.play();
     whitePieces[pieceID].move((whitePieces[pieceID].place - target)*-1);
     capturedWhite.pop();
 
@@ -98,6 +107,9 @@ function updateWhiteCapturedMove(pieceID, target){
 
 //Update black move from captured position
 function updateBlackCapturedMove(pieceID, target){
+    //Make a sound
+    var sound = new Audio('stylesheets/images/select.wav');
+    sound.play();
     blackPieces[pieceID].move((blackPieces[pieceID].place - target)*-1);
     capturedBlack.pop();
 
@@ -134,6 +146,7 @@ function updateBlackWin(pieceID){
 
 //Update capture
 function updateCapture(target){
+    
     var color = tile[target].occupied;
     capture(target);
     
@@ -173,6 +186,9 @@ function updateCapture(target){
 
 //Remove white piece
 function removeWhitePiece(pieceID){
+    //Make a sound
+    var sound = new Audio('stylesheets/images/select.wav');
+    sound.play();
     var whites = document.getElementsByClassName('white');
     
     var toRemove = null;
@@ -205,6 +221,9 @@ function removeWhitePiece(pieceID){
 
 //Remove black piece
 function removeBlackPiece(pieceID){
+    //Make a sound
+    var sound = new Audio('stylesheets/images/select.wav');
+    sound.play();
     var blacks = document.getElementsByClassName('black');
     
     var toRemove = null;

@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="stylesheets/menu.css">
     </head>
     <body>
+        
         <img class="moving" id="white" src="stylesheets/images/whitePiece.png">
         <img class="moving" id="black" src="stylesheets/images/blackPiece.png">
         <h1>Backgammon</h1>
@@ -14,7 +15,7 @@
             <div class="buttons">
                 <a href = "http://localhost:3000/game"><img class = "btn" src = "stylesheets/images/enterGame.png"></a><br>
                 <img onclick="statisticsShow()" class = "btn" id="statistics" src="stylesheets/images/statistics.png"><br>
-                <img class = "btn" src="stylesheets/images/instructions.png"><br>
+                <img onclick="overlayShow()" class = "btn" src="stylesheets/images/instructions.png"><br>
                 <h3 class ="statistic">Ongoing matches: 0</h3>
                 <h3 class ="statistic">Matches played: 0</h3>
                 <h3 class ="statistic" id="visits">Your visits: 0</h3>
@@ -40,6 +41,16 @@
                     stats[i].style.visibility = 'hidden';
                 }
                 document.getElementById('statistics').onclick = statisticsShow;
+            }
+
+            function overlayShow(){
+                var overlay = document.getElementById('overlay');
+                overlay.style.display = block;
+                overlay.onclick = overlayHide();
+            }
+
+            function overlayHide(){
+
             }
         </script>
     </body>
